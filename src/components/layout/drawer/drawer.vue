@@ -4,15 +4,14 @@
       <img :src="photo" style='height: 80px; padding: 10px; border-radius: 50%;' class="inline-block">
       <!--img src="../img/avatar-1.svg" id="avatar" class="inline-block"--> 
       <div id="user-name">
-        <span class="text-white"> {{ name }} </span>
-        <hr>
-        <span class="text-white"> {{ email }} </span>
-        <hr>
+        <span class="text-white span-user_item"> {{ name }} </span>      
+        <span class="text-white span-user_item"> {{ email }} </span>
+        <br>
       </div>
       <div id="user-actions">
-        <button class="bordered blue small" ><i>person</i></button>
+        <button class="bordered white small" ><i>person</i></button>
         <!-- <button class="bordered blue small" ><i>lock</i></button> -->
-        <button class="bordered blue small" @click='logOut'><i>exit_to_app</i></button>
+        <button class="bordered white small" @click='logOut'><i>exit_to_app</i></button>
       </div>
     </div>
     <menu-links :links="links"></menu-links>
@@ -40,9 +39,10 @@
         email: 'abc@gmail.com',
         user: {},
         links: {
-          Dashboard: {
+          Inicio: {
             routes: [
-              { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Página Inicial' }
+              { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Página Inicial' },
+              { route: '/pricing', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' }
             ],
             show: true
           },
@@ -51,6 +51,12 @@
               { route: '/form', faIcon: 'fa fa-search', materialIcon: 'search', name: 'Form find / edit' },
               { route: '/embeeded', faIcon: 'fa fa-check', materialIcon: 'check', name: 'Embeeded validations' },
               { route: '/advanced-form-one', faIcon: 'fa fa-hdd-o', materialIcon: 'filter_1', name: 'Adv. Form One' }
+            ],
+            show: true
+          },
+          'Configurações': {
+            routes: [
+              { route: '/form', faIcon: 'fa fa-cog', materialIcon: 'build', name: 'Ajuste de categorias' }
             ],
             show: true
           }
@@ -99,7 +105,8 @@
     padding: 20px;
   }
   #profile {
-    height: 130px;
+    padding-top: 10px;
+    height: 140px;
     background-color: #009688;
   }
   #user-name {
@@ -108,6 +115,16 @@
     position: relative;
     width: 159px;
   }
+  
+   .span-user_item:first-child{
+     padding-top: 8px;
+   }
+
+  .span-user_item{
+    padding-top: 5px;
+    display: block;
+  }
+
   #user-actions {
     left: 90px;
     bottom: 71px;

@@ -1,31 +1,6 @@
 <template>
   <div class="flex justify-center full-height" :class="heightSize">
-    <div class="row gt-sm">
-      <div class="row">
-        <div class="list">
-          <label class="item" v-for="color in colors">
-            <div class="item-primary">
-              <q-radio v-model="bgColor" :val="color"></q-radio>
-            </div>
-            <div class="item-content capitalize">
-              {{color}}
-            </div>
-          </label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="list fit">
-          <label class="item" v-for="tone in colorTones">
-            <div class="item-primary">
-              <q-radio v-model="toneColor" :val="tone"></q-radio>
-            </div>
-            <div class="item-content capitalize">
-              {{tone}}
-            </div>
-          </label>
-        </div>
-      </div>
-    </div>
+
     <div class="card text-white text-center width-3of4 bg-width-2of5 gt-bg-width-1of4 sm-auto " id="login">
       <div class="card-title" :class="finalBgColor">
         <svg id="logo" viewBox="0 0 483 483"
@@ -51,33 +26,6 @@
         <button class="blue fit" :class="buttonClass" @click="login()">Login Facebook</button>
       </div>
     </div>
-    <div class="row gt-sm">
-      <div class="row ">
-        <div class="list fit">
-          <label class="item" v-for="bClass in buttonClasses">
-            <div class="item-primary">
-              <q-radio v-model="buttonClass" :val="bClass"></q-radio>
-            </div>
-            <div class="item-content capitalize">
-              {{bClass}}
-            </div>
-          </label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="list">
-          <label class="item" v-for="logoName in logos">
-            <div class="item-primary">
-              <q-radio v-model="logo" :val="logoName"></q-radio>
-            </div>
-            <div class="item-content capitalize">
-              {{logoName}}
-            </div>
-          </label>
-          <button class="teal raised full-width " @click="startAnimation()">Animate !</button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -91,7 +39,7 @@
     mounted () {
       this.setLayoutNeeded(false)
       this.setIsLoginPage(true)
-      this.startAnimation()
+      //this.startAnimation()
     },
     beforeDestroy () {
       this.setLayoutNeeded(true)
@@ -114,11 +62,11 @@
     data () {
       return {
         logos: Object.keys(logoData),
-        logo: 'Digitalizer',
-        email: 'quasar@admin.com',
+        logo: 'Finanpe',
+        email: 'nonato@admin.com',
         password: '123456',
-        bgColor: 'purple',
-        toneColor: 10,
+        bgColor: 'green',
+        toneColor: 8,
         colors: ['purple', 'blue', 'red', 'green', 'amber'],
         colorTones: ['2', '4', '6', '8', '10'],
         buttonClasses: ['normal','outline', 'clear', 'push', 'bordered', 'round'],

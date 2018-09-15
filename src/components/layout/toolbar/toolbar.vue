@@ -10,7 +10,7 @@
       <i>menu</i>
     </button>
     <q-toolbar-title :padding="1">
-      Sistema de controle de gastos
+      <img src="/statics/dinheiro-40.png" alt="" srcset=""> <span class="span-page_title"> Finanpe</span>
     </q-toolbar-title>
     <div class="right-itens">
       <!--<message-popover></message-popover>
@@ -42,8 +42,16 @@
   }
 </script>
 <style scoped>
+  .span-page_title{
+    top: -12px;
+    position: relative;
+    left: 5px;
+  }
+
   .toolbar{
     min-height: 60px;
+    background-color: #1565C0;
+    
   }
   .right-itens a, .right-itens button{
     margin-right: 10px;
