@@ -7,7 +7,8 @@
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
     "build": "node build/script.build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -61,6 +62,7 @@
     "opn": "^4.0.2",
     "postcss-loader": "^1.0.0",
     "progress-bar-webpack-plugin": "^1.9.0",
+    "push-dir": "^0.4.1",
     "shelljs": "^0.7.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",
