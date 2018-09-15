@@ -15,13 +15,12 @@
         <button class="bordered blue small" @click='logOut'><i>exit_to_app</i></button>
       </div>
     </div>
-    <menu-two :links="links"></menu-two>
-    <!--menu-two v-else :links="links"></menu-two-->
+    <menu-links :links="links"></menu-links>
 
-    <div class="fixed-bottom text-center light text-italic">
+    <!-- <div class="fixed-bottom text-center light text-italic">
       Powered by
       WebDias
-    </div>
+    </div> -->
   </q-drawer>
 </template>
 
@@ -29,8 +28,7 @@
 
 <script type="text/javascript">
   import { mapGetters } from 'vuex'
-  import menuOne from './menuOne.vue'
-  import menuTwo from './menuTwo.vue'
+  import menuLinks from './menuLinks.vue'
   // import firebase from 'firebase'
   
   export default {
@@ -80,8 +78,7 @@
       ...mapGetters(['getLayoutNeeded', 'getMenuCollapse'])
     },
     components: {
-      menuOne,
-      menuTwo
+      menuLinks
     }
   }
 </script>

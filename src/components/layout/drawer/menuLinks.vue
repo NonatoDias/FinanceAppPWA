@@ -1,9 +1,9 @@
 <template>
   <div class="list no-border platform-delimiter light-paragraph">
     <template v-for="(parent, index) in links">
-      <div class="list-label ">{{replaceUnderlineToSpace(index)}}</div>
-      <template v-for="child in parent.routes">
-        <q-drawer-link :icon="child.materialIcon" :to="{path: child.route, exact: true}">
+      <div class="list-label " :key="index">{{replaceUnderlineToSpace(index)}}</div>
+      <template v-for="(child, j_index) in parent.routes">
+        <q-drawer-link :key="j_index" :icon="child.materialIcon" :to="{path: child.route, exact: true}">
           {{child.name}}
         </q-drawer-link>
       </template>

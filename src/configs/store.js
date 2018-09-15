@@ -7,7 +7,7 @@ let state = {
   layoutNeeded: true,
   isLoginPage: false,
   mobileMode: false,
-  menuCollapse: true,
+  menuCollapse: false,
 
   posts: []
 }
