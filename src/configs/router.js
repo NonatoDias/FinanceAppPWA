@@ -29,6 +29,7 @@ export default new VueRouter({
         { path: '/advanced-form-one', component: load('views/form/advancedFormOne/advancedFormOne'), meta: { name: 'Advanced Form One' } },
         { path: '/login-one', component: load('views/login/login-one'), meta: { name: 'Login One' } },
         { path: '/pricing', component: load('views/pricing/pricing'), meta: { name: 'Pricing' } },
+        { path: '/spending-register', component: load('views/spending/register/spending-register'), meta: { name: 'Registrar gastos' } },
         { path: '/drag-and-drop', component: load('views/dragAndDrop/dragAndDrop'), meta: { name: 'Drag and Drop' } },
         { path: '/server-side-data-table', component: load('views/serverSideDataTable/serverSideDataTable'), meta: { name: 'Server Side Data Table' } },
         { path: '*', component: load('Error404') } // Not found

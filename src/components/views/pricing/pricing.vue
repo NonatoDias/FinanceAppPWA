@@ -14,7 +14,7 @@
       </div>
 
       <div class="row wrap gutter justify-center">
-        <div class="auto " v-for="planData in plansData">
+        <div class="auto " v-for="(planData, plan_index) in plansData" :key="plan_index">
           <component :is="componentInstanceBySelectedPlanType"
                      :title="planData.title"
                      :title-classes="planData.titleClasses"

@@ -42,7 +42,7 @@
           Inicio: {
             routes: [
               { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Página Inicial' },
-              { route: '/pricing', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' }
+              { route: '/spending-register', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' }
             ],
             show: true
           },
