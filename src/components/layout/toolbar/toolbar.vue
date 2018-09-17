@@ -10,7 +10,7 @@
       <i>menu</i>
     </button>
     <q-toolbar-title :padding="1">
-      <img src="/statics/dinheiro-40.png" alt="" srcset=""> <span class="span-page_title"> Finanpe</span>
+      <img src="statics/dinheiro-40.png" alt="" srcset=""> <span class="span-page_title"> Finanpe</span>
     </q-toolbar-title>
     <div class="right-itens">
       <!--<message-popover></message-popover>
