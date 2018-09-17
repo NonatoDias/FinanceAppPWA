@@ -21,7 +21,7 @@ export default new VueRouter({
      */
 
   routes: [
-        { path: '/', component: load('views/dashboard/one/dashboard'), meta: { name: 'Dashboard One' } },
+        { path: '/', component: load('views/dashboard/one/dashboard'), meta: { name: 'Painel Geral' } },
         { path: '/auth', component: load('Auth'), meta: { name: 'Form Login' } },
         { path: '/success', component: load('AuthSuccess'), meta: { name: 'Form Profile' } },
         { path: '/form', component: load('views/form/simpleForm/simpleForm'), meta: { name: 'Form find / edit' } },
@@ -32,6 +32,7 @@ export default new VueRouter({
         { path: '/spending-register', component: load('views/spending/register/spending-register'), meta: { name: 'Registrar gastos' } },
         { path: '/drag-and-drop', component: load('views/dragAndDrop/dragAndDrop'), meta: { name: 'Drag and Drop' } },
         { path: '/server-side-data-table', component: load('views/serverSideDataTable/serverSideDataTable'), meta: { name: 'Server Side Data Table' } },
+        { path: '/profile', component: load('views/profile/profile'), meta: { name: 'Meu Perfil' } },
         { path: '*', component: load('Error404') } // Not found
   ]
 })

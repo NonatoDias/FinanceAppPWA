@@ -10,6 +10,7 @@
                 <button class="secondary small" @click="add()"><i class="item-primary">add</i> Registrar</button>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -21,9 +22,14 @@
     methods: {
       add () {
         Dialog.create({
-          title: 'Valor do gasto',
+          title: 'Registro',
           form: {
-            name: {
+            about: {
+              type: 'textbox',
+              label: 'Descrição',
+              model: ''
+            },
+            value: {
               type: 'textbox',
               label: 'Valor',
               model: ''

@@ -9,7 +9,7 @@
         <br>
       </div>
       <div id="user-actions">
-        <button class="bordered white small" ><i>person</i></button>
+        <button class="bordered white small" @click="goToProfile"><i>person</i></button>
         <!-- <button class="bordered blue small" ><i>lock</i></button> -->
         <button class="bordered white small" @click='logOut'><i>exit_to_app</i></button>
       </div>
@@ -28,6 +28,7 @@
 <script type="text/javascript">
   import { mapGetters } from 'vuex'
   import menuLinks from './menuLinks.vue'
+  
   // import firebase from 'firebase'
   
   export default {
@@ -41,7 +42,7 @@
         links: {
           Inicio: {
             routes: [
-              { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Página Inicial' },
+              { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Painel Geral' },
               { route: '/spending-register', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' }
             ],
             show: true
@@ -77,7 +78,10 @@
     },
     methods: {
       logOut () {
-        // firebase.auth().signOut()
+        this.$router.push('/login-one')
+      },
+      goToProfile () {
+        this.$router.push('/profile')
       }
     },
     computed: {
