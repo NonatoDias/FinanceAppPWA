@@ -33,6 +33,7 @@ export default new VueRouter({
         { path: '/drag-and-drop', component: load('views/dragAndDrop/dragAndDrop'), meta: { name: 'Drag and Drop' } },
         { path: '/server-side-data-table', component: load('views/serverSideDataTable/serverSideDataTable'), meta: { name: 'Server Side Data Table' } },
         { path: '/profile', component: load('views/profile/profile'), meta: { name: 'Meu Perfil' } },
+        { path: '/reports', component: load('views/reports/reports'), meta: { name: 'Relatórios' } },
         { path: '*', component: load('Error404') } // Not found
   ]
 })
