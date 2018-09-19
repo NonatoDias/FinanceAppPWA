@@ -40,11 +40,11 @@
         email: 'abc@gmail.com',
         user: {},
         links: {
-          Inicio: {
+          Início: {
             routes: [
               { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Painel Geral' },
               { route: '/spending-register', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' },
-              { route: '/reports', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Relatórios' }
+              { route: '/reports', faIcon: 'fa fa-home', materialIcon: 'insert_chart', name: 'Relatórios' }
             ],
             show: true
           },
