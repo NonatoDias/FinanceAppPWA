@@ -43,11 +43,12 @@
           Inicio: {
             routes: [
               { route: '/', faIcon: 'fa fa-home', materialIcon: 'home', name: 'Painel Geral' },
-              { route: '/spending-register', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' }
+              { route: '/spending-register', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Registrar gasto' },
+              { route: '/reports', faIcon: 'fa fa-home', materialIcon: 'attach_money', name: 'Relatórios' }
             ],
             show: true
           },
-          Relatorios: {
+          Alertas: {
             routes: [
               { route: '/form', faIcon: 'fa fa-search', materialIcon: 'search', name: 'Form find / edit' },
               { route: '/embeeded', faIcon: 'fa fa-check', materialIcon: 'check', name: 'Embeeded validations' },
