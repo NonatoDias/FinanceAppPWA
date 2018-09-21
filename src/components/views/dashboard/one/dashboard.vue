@@ -3,25 +3,26 @@
     <div class="flex wrap gutter">
       <div class="width-1of3 sm-auto">
         <cardTotal
-          title="Total Posts"
-          background-color="bg-teal-9"
-          icon-name="local_post_office"
-          :total="totalPosts">
-        </cardTotal>
-      </div>
-      <div class="width-1of3 sm-auto">
-        <cardTotal
-          title="Total comments"
+          title="Valor recebido"
           background-color="bg-teal-7"
-          icon-name="comment"
+          icon-name="sentiment_very_satisfied"
           :total="totalComments">
         </cardTotal>
       </div>
       <div class="width-1of3 sm-auto">
         <cardTotal
-          title="Static total"
+          title="Gastos Mês SETEMBRO"
+          background-color="bg-red"
+          icon-name="mood_bad"
+          :total="totalPosts">
+        </cardTotal>
+      </div>
+      
+      <div class="width-1of3 sm-auto">
+        <cardTotal
+          title="Saldo total"
           background-color="bg-teal-5"
-          icon-name="repeat_one"
+          icon-name="attach_money"
           :total="50004">
         </cardTotal>
       </div>
@@ -29,7 +30,7 @@
     <div class="flex wrap gutter">
       <div class="width-1of2 lg-width-1of3 sm-auto">
         <card-chart
-          card-title="Total Graph"
+          card-title="Saldo mensal"
           :data="dataForGraph"
         ></card-chart>
       </div>
@@ -42,7 +43,7 @@
     <div class="flex wrap gutter">
       <div class="width-4of5 sm-width-1of1">
         <card-todo
-          card-title="Generic todos"
+          card-title="Últimos lançamentos"
           api="todos">
         </card-todo>
       </div>

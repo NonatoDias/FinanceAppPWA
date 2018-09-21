@@ -50,9 +50,7 @@
           },
           Alertas: {
             routes: [
-              { route: '/form', faIcon: 'fa fa-search', materialIcon: 'search', name: 'Form find / edit' },
-              { route: '/embeeded', faIcon: 'fa fa-check', materialIcon: 'check', name: 'Embeeded validations' },
-              { route: '/advanced-form-one', faIcon: 'fa fa-hdd-o', materialIcon: 'filter_1', name: 'Adv. Form One' }
+              { route: '/form2', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Meus alertas' }
             ],
             show: true
           },
