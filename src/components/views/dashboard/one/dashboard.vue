@@ -3,10 +3,10 @@
     <div class="flex wrap gutter">
       <div class="width-1of3 sm-auto">
         <cardTotal
-          title="Valor recebido"
+          title="Meta"
           background-color="bg-teal-7"
           icon-name="sentiment_very_satisfied"
-          :total="totalComments">
+          :total="goal">
         </cardTotal>
       </div>
       <div class="width-1of3 sm-auto">
@@ -14,32 +14,19 @@
           title="Gastos Mês SETEMBRO"
           background-color="bg-red"
           icon-name="mood_bad"
-          :total="totalPosts">
+          :total="totalWasted">
         </cardTotal>
       </div>
-      
       <div class="width-1of3 sm-auto">
         <cardTotal
           title="Saldo total"
           background-color="bg-teal-5"
           icon-name="attach_money"
-          :total="50004">
+          :total="balance">
         </cardTotal>
       </div>
     </div>
-    <div class="flex wrap gutter">
-      <div class="width-1of2 lg-width-1of3 sm-auto">
-        <card-chart
-          card-title="Saldo mensal"
-          :data="dataForGraph"
-        ></card-chart>
-      </div>
-      <div class="auto">
-        <knob-statistics
-          card-title="General statistics">
-        </knob-statistics>
-      </div>
-    </div>
+    
     <div class="flex wrap gutter">
       <div class="width-4of5 sm-width-1of1">
         <card-todo
@@ -48,13 +35,14 @@
         </card-todo>
       </div>
     </div>
+    <button class="primary circular absolute-bottom-right btn-floating-padding" >
+      <i class="material-icons">add</i>
+    </button>
   </div>
 </template>
 <script type="text/javascript">
-  import cardChart from './cardChart.vue'
   import cardTotal from './cardTotal.vue'
   import cardTodo from './cardTodo.vue'
-  import knobStatistics from './knobStatistics.vue'
   import { mapMutations } from 'vuex'
   export default {
     name: 'Home',
@@ -67,24 +55,26 @@
       ])
         .then(response => {
           this.setPosts(response[0].data)
-          this.totalPosts = response[0].data.length
-          this.totalComments = response[1].data.length
+          this.totalWasted = response[0].data.length
+          this.goal = response[1].data.length
           this.totalTodos = response[2].data.length
+          this.balance = this.goal - this.totalWasted
         })
     },
     data () {
       return {
-        totalPosts: 0,
-        totalComments: 0,
+        balance: 0,
+        totalWasted: 0,
+        goal: 0,
         totalTodos: 0
       }
     },
     computed: {
       dataForGraph () {
         return {
-          posts: this.totalPosts,
+          posts: this.totalWasted,
           todos: this.totalTodos,
-          comments: this.totalComments
+          comments: this.goal
         }
       }
     },
@@ -93,10 +83,21 @@
     },
     components: {
       cardTotal,
-      cardChart,
-      cardTodo,
-      knobStatistics
+      cardTodo
     }
   }
 </script>
-<style></style>
+<style>
+  .btn-floating-padding{
+    right: 15px;
+    bottom: 15px;
+  }
+
+  @media screen and (min-width: 1000px) {
+    .btn-floating-padding{
+      right: 30px;
+      bottom: 20px;
+    }
+  }
+
+</style>

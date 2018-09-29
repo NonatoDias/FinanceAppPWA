@@ -8,7 +8,6 @@ let state = {
   isLoginPage: false,
   mobileMode: false,
   menuCollapse: false,
-
   posts: []
 }
 

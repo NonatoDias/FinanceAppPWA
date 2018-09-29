@@ -16,11 +16,6 @@
                 <span v-show="todo.completed" class="completed-line">{{todo.title}}</span>
                 <input v-show="!todo.completed" v-model.lazy="todo.title" class="fit" @change="changeTitle(todo)">
               </div>
-              <q-toggle class="item-secondary"
-                        icon="done"
-                        @input="completeTodo(todo)"
-                        v-model="todo.completed"
-              ></q-toggle>
             </div>
             <div class="row justify-center">
               <spinner name="dots" slot="message" :size="40"></spinner>
