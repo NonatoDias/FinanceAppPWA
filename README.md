@@ -4,3 +4,13 @@ Ter controle sobre o orçamento ́e um enorme desafio, pois muitas pessoas não 
 
 Diante disso, este projeto propõe o desenvolvimento de um sistema web para controle financeiro, com o objetivo de fornecer uma boa experiência para os usuários, proporcionar a facilidade do uso e a reeducação financeira.
 
+## App
+
+![Screenshot](docs/app.png)
+
+### Funcionalidades Básicas
+- Cadastro de despesas
+- Monitoramento de Metas
+- Relatório dos gastos
+
+
