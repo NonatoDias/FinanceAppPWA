@@ -2,6 +2,7 @@ var
   path = require('path'),
   webpack = require('webpack'),
   config = require('../config'),
+  workboxPlugin = require('workbox-webpack-plugin');
   cssUtils = require('./css-utils'),
   env = require('./env-utils'),
   merge = require('webpack-merge'),
@@ -103,6 +104,11 @@ module.exports = {
     }),
     new ProgressBarPlugin({
       format: config.progressFormat
+    }),
+    new workboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
     })
   ],
   performance: {
