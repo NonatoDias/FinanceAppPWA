@@ -35,18 +35,22 @@
         </card-todo>
       </div>
     </div>
-    <button class="primary circular absolute-bottom-right btn-floating-padding" >
+    <button @click="add" class="primary circular absolute-bottom-right btn-floating-padding" >
       <i class="material-icons">add</i>
     </button>
   </div>
 </template>
 <script type="text/javascript">
   import cardTotal from './cardTotal.vue'
+  import router from 'configs/router'
   import cardTodo from './cardTodo.vue'
+  import { Dialog } from 'quasar'
   import { mapMutations } from 'vuex'
   export default {
     name: 'Home',
     mounted () {
+      this.setLayoutNeeded(true)
+
       // Axios.all not working
       Promise.all([
         this.$http.jsonplaceholder.get('posts'),
@@ -79,7 +83,29 @@
       }
     },
     methods: {
-      ...mapMutations(['setPosts'])
+      ...mapMutations(['setPosts', 'setLayoutNeeded']),
+      add () {
+        Dialog.create({
+          title: 'Despeza',
+          message: 'Registre aqui o valor do gasto',
+          form: {
+            value: {
+              type: 'numeric',
+              label: 'Valor',
+              model: 0
+            }
+          },
+          buttons: [
+            'Cancel',
+            {
+              label: 'Ok',
+              handler (data) {
+                router.push('/spending-register')
+              }
+            }
+          ]
+        })
+      }
     },
     components: {
       cardTotal,
@@ -91,6 +117,10 @@
   .btn-floating-padding{
     right: 15px;
     bottom: 15px;
+  }
+
+  .modal-body .q-numeric{
+    width: 190px;
   }
 
   @media screen and (min-width: 1000px) {

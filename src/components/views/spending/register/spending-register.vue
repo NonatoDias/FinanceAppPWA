@@ -15,9 +15,16 @@
 <script type="text/javascript">
   /* eslint-disable */
   import cardSpendingTypeOne from './cardSpendingTypeOne.vue'
-  import cardSpendingTypeTwo from './cardSpendingTypeTwo.vue'
+  import cardSpendingTypeTwo from './cardSpendingTypeTwo.vue'  
+  import {mapMutations} from 'vuex'
   export default {
     name: 'SpendingRegister',
+    mounted () {
+      this.setLayoutNeeded(false)
+    },
+    beforeDestroy () {
+      this.setLayoutNeeded(true)
+    },
     data () {
       return {
         fullWidth: document.documentElement.clientHeight,
@@ -60,6 +67,7 @@
       }
     },
     methods: {
+      ...mapMutations(['setLayoutNeeded', 'setIsLoginPage']),
       handleResize (event) {
         this.fullWidth = document.documentElement.clientWidth
       }
