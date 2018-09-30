@@ -54,3 +54,5 @@ Quasar.start(() => {
     render: h => h(require('./App'))
   })
 })
+
+console.log('TEste aqui')

@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "Wedias App",
   "author": "Nonato Dias",
+  "homepage": "https://github.com/NonatoDias/FinanceAppPWA",
+  "license": "MIT License",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/NonatoDias/FinanceAppPWA"
+  },
   "scripts": {
     "clean": "node build/script.clean.js",
     "dev": "node build/script.dev.js",
