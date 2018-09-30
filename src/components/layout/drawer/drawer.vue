@@ -48,15 +48,11 @@
             ],
             show: true
           },
-          Alertas: {
+          'Definições': {
             routes: [
-              { route: '/form2', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Meus alertas' }
-            ],
-            show: true
-          },
-          'Configurações': {
-            routes: [
-              { route: '/form', faIcon: 'fa fa-cog', materialIcon: 'build', name: 'Ajuste de categorias' }
+              { route: '/my-goals', faIcon: 'fa fa-bell-o', materialIcon: 'thumb_up', name: 'Minhas Metas' },
+              { route: '/alerts', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Alertas' },
+              { route: '/category-all', faIcon: 'fa fa-cog', materialIcon: 'build', name: 'Ajuste de categorias' }
             ],
             show: true
           }

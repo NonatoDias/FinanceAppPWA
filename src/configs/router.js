@@ -22,18 +22,14 @@ export default new VueRouter({
 
   routes: [
         { path: '/', component: load('views/dashboard/one/dashboard'), meta: { name: 'Painel Geral' } },
-        { path: '/auth', component: load('Auth'), meta: { name: 'Form Login' } },
+        { path: '/my-goals', component: load('views/goals/myGoals/goals-mygoals'), meta: { name: 'Minhas metas' } },
+        { path: '/alerts', component: load('views/alerts/all/alerts-all'), meta: { name: 'Alertas' } },
         { path: '/success', component: load('AuthSuccess'), meta: { name: 'Form Profile' } },
-        { path: '/form', component: load('views/form/simpleForm/simpleForm'), meta: { name: 'Form find / edit' } },
-        { path: '/embeeded', component: load('views/form/embeeded/embeeded'), meta: { name: 'Embeeded Validations' } },
-        { path: '/advanced-form-one', component: load('views/form/advancedFormOne/advancedFormOne'), meta: { name: 'Advanced Form One' } },
         { path: '/login-one', component: load('views/login/login-one'), meta: { name: 'Login One' } },
-        { path: '/pricing', component: load('views/pricing/pricing'), meta: { name: 'Pricing' } },
         { path: '/spending-register', component: load('views/spending/register/spending-register'), meta: { name: 'Registrar gastos' } },
-        { path: '/drag-and-drop', component: load('views/dragAndDrop/dragAndDrop'), meta: { name: 'Drag and Drop' } },
-        { path: '/server-side-data-table', component: load('views/serverSideDataTable/serverSideDataTable'), meta: { name: 'Server Side Data Table' } },
         { path: '/profile', component: load('views/profile/profile'), meta: { name: 'Meu Perfil' } },
         { path: '/reports', component: load('views/reports/reports'), meta: { name: 'Relatórios' } },
+        { path: '/category-all', component: load('views/category/all/category-all'), meta: { name: 'Ajuste de categorias' } },
         { path: '*', component: load('Error404') } // Not found
   ]
 })

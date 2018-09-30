@@ -56,7 +56,7 @@ Quasar.start(() => {
 })
 
 // Check that service workers are registered
-if ('serviceWorker' in navigator) {
+/* if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').then(registration => {
       console.log('SW registered: ', registration)
@@ -64,4 +64,4 @@ if ('serviceWorker' in navigator) {
       console.log('SW registration failed: ', registrationError)
     })
   })
-}
+} */

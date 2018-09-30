@@ -25,13 +25,21 @@
 </template>
 
 <script type="text/javascript">
+import {mapMutations} from 'vuex'
 export default {
+  mounted () {
+    this.setLayoutNeeded(false)
+  },
+  beforeDestroy () {
+    this.setLayoutNeeded(true)
+  },
   data () {
     return {
       canGoBack: window.history.length > 1
     }
   },
   methods: {
+    ...mapMutations(['setLayoutNeeded', 'setIsLoginPage']),
     goBack () {
       window.history.go(-1)
     }

@@ -104,11 +104,6 @@ module.exports = {
     }),
     new ProgressBarPlugin({
       format: config.progressFormat
-    }),
-    new workboxPlugin.GenerateSW({
-      swDest: 'sw.js',
-      clientsClaim: true,
-      skipWaiting: true,
     })
   ],
   performance: {
