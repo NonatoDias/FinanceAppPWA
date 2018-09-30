@@ -1,26 +1,45 @@
 <template>
   <div>
     <div class="layout-padding media-control">
-      <div class="row wrap gutter justify-center" style="display: inline-block;">
-        <div class="card-item" v-for="(spendingType, index) in spendingTypeData" :key="index">
-            <component :is="componentCardType" 
-                :img="spendingType.img"
-                :title="spendingType.title"></component>
+      <div class="div-form-register ">
+        <p class="p-info">Formulário para registro de gastos</p>
+        <div class="div-form-register_item">
+          <label class="label-item" for="">Valor</label>
+          <q-numeric v-model="value" :min="1" :max="999999" ></q-numeric>
+        </div>
+        <div class="div-form-register_item">
+          <label class="label-item" for="">Categoria</label>
+          <q-select type="radio" v-model="category" :options="selectOptions" ></q-select>
+        </div>
+        <div class="div-form-register_item">
+          <label class="label-item" for="">Descrição</label>
+          <input class="input-item" v-model="description" placeholder="Type something">
+        </div>
+        <div class="div-form-register_item">
+          <label class="label-item" for="">Dia do gasto</label>
+          <q-datetime v-model="date" type="date" ok-label="Definir"></q-datetime>
+        </div>
+        <div class="div-form-register_buttons">
+          <button class="light  small " @click="addExpense()">
+            Cancelar
+          </button>
+          <button class="primary  small" @click="addExpense()">
+            Adicionar
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <script type="text/javascript">
-  /* eslint-disable */
-  import cardSpendingTypeOne from './cardSpendingTypeOne.vue'
-  import cardSpendingTypeTwo from './cardSpendingTypeTwo.vue'  
   import {mapMutations} from 'vuex'
   export default {
     name: 'SpendingRegister',
     mounted () {
-      this.setLayoutNeeded(false)
+      const w = document.documentElement.clientWidth
+      if (w < 600) {
+        this.setLayoutNeeded(false)
+      }
     },
     beforeDestroy () {
       this.setLayoutNeeded(true)
@@ -28,87 +47,92 @@
     data () {
       return {
         fullWidth: document.documentElement.clientHeight,
-        spendingTypeData: [
+        value: 1,
+        category: 2,
+        description: 'Simples gasto',
+        date: '2018-09-27',
+        selectOptions: [
           {
-            title: 'Alementação',
-            img: 'statics/spending/food.jpg'
+            label: 'Alimentação',
+            value: '1'
           },
           {
-            title: 'Compras',
-            img: 'statics/spending/shopping.jpg'
-          },
-          {
-            title: 'Viagens',
-            img: 'statics/spending/travel.jpg'
-          },
-          {
-            title: 'Escola/Faculdade',
-            img: 'statics/spending/education.jpg'
-          },
-          {
-            title: 'Transporte',
-            img: 'statics/spending/cars.jpg'
-          },
-          {
-            title: 'Saúde',
-            img: 'statics/spending/health.jpg'
+            label: 'Transporte',
+            value: '2'
           }
         ]
       }
     },
     components: {
-      cardSpendingTypeOne,
-      cardSpendingTypeTwo
     },
     computed: {
-      componentCardType () {
-        // return this.fullWidth > 600 ? 'cardSpendingTypeOne' : 'cardSpendingTypeTwo';
-        return 'cardSpendingTypeOne';
-      }
     },
     methods: {
       ...mapMutations(['setLayoutNeeded', 'setIsLoginPage']),
-      handleResize (event) {
-        this.fullWidth = document.documentElement.clientWidth
+      addExpense () {
+        this.$router.push('/')
       }
     },
     ready: function () {
-        // window.addEventListener('resize', this.handleResize)
-    },
-    beforeDestroy: function () {
-        // window.removeEventListener('resize', this.handleResize)
     }
   }
 </script>
 <style scoped>
-.card-item{
-  float: left;
+.div-form-register{
+  background: white;
+  padding: 15px 10px 20px;
+  max-width: 600px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
 }
 
+.div-form-register_item:not(:last-child){
+  padding-bottom: 15px; 
+}
 
-@media screen and (min-width: 1700px){
-  .layout-padding.media-control{
-      width: 1260px;
-      float: left;
+.div-form-register_item > div[class^="q-"], .input-item {
+  width: 300px;
+}
+
+.p-info{
+  text-align: center;
+}
+
+.label-item{
+  width: 140px;
+  display: inline-block;
+  text-align: right;
+  padding-right: 5px;
+  color: #027be3;
+}
+
+.div-form-register_buttons{
+  text-align: center;
+}
+
+@media screen and (max-width: 600px){
+  .div-form-register{
+    margin: auto;
+    margin-top: -1.5em;
+    /*box-shadow: none;*/
+  }
+
+  .label-item{
+    width: 110px;
   }
 }
 
-@media screen and (max-width: 1700px){
-  .layout-padding.media-control{
-      width: 960px;
-      float: left;
+@media screen and (max-width: 460px){
+  .div-form-register{
+    margin-top: -1.5em;
+    padding: 15px 25px;
   }
-}
 
-@media screen and (max-width: 1200px){
-  .layout-padding.media-control{
-      width: 700px;
-      float: left;
+  .label-item{
+    text-align: left;
+    width: 100%;
   }
-}
 
-@media screen and (max-width: 700px){
-  .layout-padding.media-control{
+  .div-form-register_item > div[class^="q-"], .input-item {
     width: 100%;
   }
 }
