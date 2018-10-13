@@ -8,14 +8,14 @@
             <q-field
               icon="attach_money"
             >
-              <q-input type="number" prefix="R$" float-label="Valor"  v-model="value" />
+              <q-input type="number" prefix="R$" float-label="Valor"  v-model="expense.value" />
             </q-field>
             <q-field
               icon="access_time"
             >
               <q-datetime
                 float-label="Data"
-                v-model="date"
+                v-model="expense.date"
                 type="date"
                 ok-label="Definir"
               />
@@ -25,7 +25,7 @@
               helper="Importante para relatórios"
             >
               <q-select
-                v-model="category"
+                v-model="expense.category"
                 float-label="Categoria"
                 radio
                 :options="categoryOptions"
@@ -36,7 +36,7 @@
               helper="Pequeno resumo da despeza"
             >
               <q-input
-                v-model="description"
+                v-model="expense.description"
                 float-label="Descrição"
                 type="text"
               />
@@ -53,14 +53,17 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
 export default {
   data () {
     return {
       opened: false,
-      date: new Date(),
-      value: 0,
-      description: '',
-      category: null,
+      expense: {
+        date: new Date(),
+        value: 0,
+        description: '',
+        category: null
+      },
       categoryOptions: [
         {
           label: 'Google',
@@ -79,6 +82,8 @@ export default {
     },
     confirm () {
       this.opened = false
+      console.log(this.expense)
+      this.loadCategories()
     },
     cancel () {
         this.opened = false
@@ -87,9 +92,21 @@ export default {
       if (this.opened) {
         this.cancel()
       }
+    },
+    loadCategories () {
+      Loading.show()
+      this.$axios.get(this.$wsConfig.baseUrl)
+      .then((response) => {
+        console.log(response.data)
+        Loading.hide()
+      })
+      .catch(() => {
+        Loading.hide()
+      })
     }
   },
   created () {
+    this.loadCategories()
     this.$router.beforeEach((to, from, next) => {
       if (from.path === '/' && this.opened) {
         this.opened = false

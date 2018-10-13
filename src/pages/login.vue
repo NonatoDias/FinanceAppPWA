@@ -50,7 +50,7 @@ export default {
 <style scoped>
 .page-bg{
   background-color: whitesmoke;
-  background-image: url('/statics/bg/bg-desktop.jpg');
+  background-image: url('../statics/bg/bg-desktop.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -104,7 +104,7 @@ export default {
 
 @media screen and (max-width: 720px){
   .page-bg{
-    background-image: url('/statics/bg/bg-mobile.jpg');
+    background-image: url('../statics/bg/bg-mobile.jpg');
   }
 }
 </style>
