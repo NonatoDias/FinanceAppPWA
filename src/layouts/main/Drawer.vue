@@ -15,7 +15,7 @@
             <div :key="key">
                 <q-list-header>{{key}}</q-list-header>
                 <template v-for="(item, index) in link.routes">
-                    <q-item :key="index" @click.native="goTo(item.route)">
+                    <q-item :class="itemClass(item.route)" :key="index" @click.native="goTo(item.route)">
                         <q-item-side :icon="item.materialIcon" />
                         <q-item-main :label="item.name" />
                     </q-item>
@@ -31,6 +31,7 @@ export default {
   name: 'Drawer',
   data () {
     return {
+        currentPath: this.$router.currentRoute.path,
         photo: 'https://avatars0.githubusercontent.com/u/25044027?s=460&v=4',
         leftDrawerOpen: this.$q.platform.is.desktop,
         links: {
@@ -54,16 +55,20 @@ export default {
   methods: {
     goTo (route) {
         this.$router.push(route)
+        console.log()
     },
     toggleMenu () {
       this.leftDrawerOpen = !this.leftDrawerOpen
+    },
+    itemClass (path) {
+        return this.currentPath === path ? 'item-link active' : 'item-link'
     }
   }
 }
 
 </script>
 
-<style>
+<style scoped>
 .q-toolbar {
     min-height: 60px;
 }
@@ -71,6 +76,21 @@ export default {
     padding-top: 10px;
     height: 140px;
     background-color: #009688;
+}
+
+.item-link{
+    cursor: pointer;
+    padding: 10px 16px;
+}
+
+.item-link:hover{
+    background: whitesmoke;
+}
+
+.item-link.active{
+    color: #027be3;
+    background-color: #dadada!important;
+    border-right: 2px solid #027be3;
 }
 
 </style>
