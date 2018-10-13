@@ -55,6 +55,8 @@ module.exports = function (ctx) {
         'QItem',
         'QItemMain',
         'QItemSide',
+        'QItemSeparator',
+        'QItemTile',
         'QCard',
         'QCardTitle',
         'QCardMain',
@@ -63,7 +65,14 @@ module.exports = function (ctx) {
         'QCardActions',
         'QFab',
         'QFabAction',
-        'QPageSticky'
+        'QPageSticky',
+        'QTable',
+        'QModal',
+        'QModalLayout',
+        'QField',
+        'QInput',
+        'QSelect',
+        'QDatetime'
       ],
       directives: [
         'Ripple'
