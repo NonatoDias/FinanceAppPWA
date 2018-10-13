@@ -82,7 +82,7 @@ export default {
         console.log()
     },
     logout () {
-        console.log('saindo')
+        this.$router.push('/login')
     }
   }
 }
