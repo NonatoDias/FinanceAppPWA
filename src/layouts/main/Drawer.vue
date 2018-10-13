@@ -4,7 +4,21 @@
       :content-class="$q.theme === 'mat' ? 'bg-white' : null"
     >
       <div id="profile">
-        <img :src="photo" style='height: 80px; padding: 10px; border-radius: 50%;' class="inline-block">
+        <img :src="user.photo" class="inline-block">
+        <div class="user-description">
+            <span class="span-title">{{user.fullname}}</span>
+            <span class="span-subtitle">{{user.login}}</span>
+            <q-btn
+                class="btn-logout"
+                round
+                outline
+                size="md"
+                color="primary"
+                icon="exit_to_app"
+                title="logout"
+                @click="logout"
+            />
+        </div>
       </div>
       <q-list
         no-border
@@ -15,7 +29,7 @@
             <div :key="key">
                 <q-list-header>{{key}}</q-list-header>
                 <template v-for="(item, index) in link.routes">
-                    <q-item :class="itemClass(item.route)" :key="index" @click.native="goTo(item.route)">
+                    <q-item v-bind:class="{'item-link': true, 'active': isItemActive(item.route)}" :key="index" @click.native="goTo(item.route)">
                         <q-item-side :icon="item.materialIcon" />
                         <q-item-main :label="item.name" />
                     </q-item>
@@ -32,13 +46,16 @@ export default {
   data () {
     return {
         currentPath: this.$router.currentRoute.path,
-        photo: 'https://avatars0.githubusercontent.com/u/25044027?s=460&v=4',
+        user: {
+            fullname: 'Nonato Dias',
+            login: 'nonato@gmail.com',
+            photo: 'https://avatars0.githubusercontent.com/u/25044027?s=460&v=4'
+        },
         leftDrawerOpen: this.$q.platform.is.desktop,
         links: {
             'Início': {
                 routes: [
                     { route: '/', materialIcon: 'home', name: 'Painel Geral' },
-                    { route: '/spending-register', materialIcon: 'attach_money', name: 'Registrar gasto' },
                     { route: '/reports', faIcon: 'fa fa-home', materialIcon: 'insert_chart', name: 'Relatórios' }
                 ]
             },
@@ -53,15 +70,19 @@ export default {
     }
   },
   methods: {
-    goTo (route) {
-        this.$router.push(route)
-        console.log()
-    },
     toggleMenu () {
       this.leftDrawerOpen = !this.leftDrawerOpen
     },
-    itemClass (path) {
-        return this.currentPath === path ? 'item-link active' : 'item-link'
+    isItemActive (path) {
+        return this.currentPath === path
+    },
+    goTo (route) {
+        this.currentPath = route
+        this.$router.push(route)
+        console.log()
+    },
+    logout () {
+        console.log('saindo')
     }
   }
 }
@@ -73,9 +94,42 @@ export default {
     min-height: 60px;
 }
 #profile {
-    padding-top: 10px;
+    padding-top: 20px;
+    padding-left: 5px;
     height: 140px;
     background-color: #009688;
+}
+
+#profile > img {
+    height: 80px;
+    width: 80px;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.user-description{
+    width: calc(100% - 81px);
+    float: right;
+    padding-top: 20px;
+    padding-left: 5px;
+    color: white;
+    position: relative;
+}
+
+.user-description .span-title{
+    font-size: 1.1em;
+    display: inline-block;
+    width: 100%;
+}
+.user-description .span-subtitle{
+    font-size: 0.8em;
+    display: inline-block;
+}
+.btn-logout{
+    position: absolute;
+    bottom: -80px;
+    right: 13px;
+    background: white !important;
 }
 
 .item-link{
