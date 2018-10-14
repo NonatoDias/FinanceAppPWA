@@ -1,6 +1,6 @@
 <template>
   <q-page class="page-bg">
-    <div class="row justify-center items-center" style="height: 100vh;">
+    <div class="row justify-center items-center" style="height: 100vh; overflow: auto;">
       <div class="login-form shadow-2" >
         <div class="login-form-header items-center">
           <img src="statics/icons/finanpe-logo.png" class="img-logo" alt="" srcset="">
@@ -15,12 +15,12 @@
             <q-field
               icon="vpn_key"
             >
-              <q-input type="password"  float-label="senha"  v-model="user.pass" />
+              <q-input type="password" @keyup.enter="login()" float-label="senha"  v-model="user.pass" />
             </q-field>
             <div class="div-btns">
               <q-btn rounded size="md" color="primary" label="Entrar"  @click="login()" />
-              <q-btn outline rounded size="md" color="primary" label="Cadastrar"  @click="login()" />
-              <q-btn flat rounded size="sm" color="primary" label="Esqueci a senha"  @click="login()" />
+              <q-btn outline rounded size="md" color="primary" label="Cadastrar"  @click="signup()" />
+              <q-btn flat rounded size="sm" color="primary" label="Esqueci a senha"  @click="forgotPass()" />
             </div>
         </div>
       </div>
@@ -29,20 +29,59 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
 export default {
   // name: 'PageName',
   data () {
     return {
       user: {
-        login: 'admin@gmail.com',
-        pass: '123456'
+        login: 'admin',
+        pass: ''
       }
     }
   },
   methods: {
+    alertError (msg) {
+      this.$q.dialog({
+        title: 'Ops!',
+        message: msg || 'Parece que o login ou a senha estão incorretos'
+      })
+    },
+    storeData (token) {
+      localStorage.setItem('sessionToken', token)
+    },
+    clearStorage () {
+      localStorage.clear()
+    },
     login () {
-      this.$router.push('/')
+      Loading.show()
+      let url = this.$wsConfig.baseUrl + '?req=user&action=login&login=' + this.user.login + '&pass=' + this.user.pass
+      console.log(url)
+      this.$axios.get(url)
+      .then((response) => {
+        Loading.hide()
+        let data = response.data
+        if (data.status_code === 200) {
+          this.storeData(data.session_token)
+          this.$router.push('/')
+        } else {
+          this.alertError()
+        }
+      })
+      .catch((error) => {
+        this.alertError('Erro ao conectar no servidor' + error)
+        Loading.hide()
+      })
+    },
+    forgotPass () {
+      console.log('nao definido')
+    },
+    signup () {
+      console.log('nao definido')
     }
+  },
+  created () {
+    this.clearStorage()
   }
 }
 </script>
