@@ -55,14 +55,14 @@ export default {
     },
     login () {
       Loading.show()
-      let url = this.$wsConfig.baseUrl + '?req=user&action=login&login=' + this.user.login + '&pass=' + this.user.pass
+      let url = this.$wsConfig.baseUrl + '?req=user&action=getUserSession&login=' + this.user.login + '&pass=' + this.user.pass
       console.log(url)
       this.$axios.get(url)
       .then((response) => {
         Loading.hide()
         let data = response.data
-        if (data.status_code === 200) {
-          this.storeData(data.session_token)
+        if (data.status_code === 200 && data.userSession) {
+          this.storeData(data.userSession.st)
           this.$router.push('/')
         } else {
           this.alertError()

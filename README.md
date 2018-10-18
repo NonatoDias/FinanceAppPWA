@@ -8,11 +8,26 @@ Este projeto propõe o desenvolvimento de um sistema web para controle financeir
 
 ## App
 
-![Screenshot](docs/app.png)
+![Screenshot](docs/app-2.png)
 
 ### Funcionalidades Básicas
 - Cadastro de despesas
 - Monitoramento de Metas
 - Relatório dos gastos
+
+# Get started
+Após clonar o projeto, instale as dependencias do node **(npm install)**. 
+
+Para iniciar o modo desenvolvimento sem pwa, digite :
+
+    quasar dev
+
+Com PWA
+
+    npm start
+
+Para construir
+
+    pwa-build
 
 
