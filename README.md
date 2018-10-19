@@ -28,6 +28,6 @@ Com PWA
 
 Para construir
 
-    pwa-build
+    npm run pwa-build
 
 
