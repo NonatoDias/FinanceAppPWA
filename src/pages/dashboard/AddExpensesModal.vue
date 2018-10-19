@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import { Loading } from 'quasar'
 export default {
   data () {
     return {
@@ -94,15 +93,7 @@ export default {
       }
     },
     loadCategories () {
-      Loading.show()
-      this.$axios.get(this.$wsConfig.baseUrl)
-      .then((response) => {
-        console.log(response.data)
-        Loading.hide()
-      })
-      .catch(() => {
-        Loading.hide()
-      })
+      console.log('categorias')
     }
   },
   created () {
