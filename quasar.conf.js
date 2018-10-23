@@ -4,7 +4,8 @@ module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
     plugins: [
-      'axios'
+      'axios',
+      'restAPI'
     ],
     css: [
       'app.styl'

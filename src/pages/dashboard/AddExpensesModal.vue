@@ -54,59 +54,70 @@
 
 <script>
 export default {
-  data () {
-    return {
-      opened: false,
-      expense: {
-        date: new Date(),
-        value: 0,
-        description: '',
-        category: null
-      },
-      categoryOptions: [
-        {
-          label: 'Google',
-          value: 'goog'
-        },
-        {
-          label: 'Facebook',
-          value: 'fb'
+    data () {
+        return {
+            opened: false,
+            expense: {
+                date: new Date(),
+                value: 0,
+                description: '',
+                category: null
+            },
+            categoryOptions: [
+                {
+                    label: 'Google',
+                    value: 'goog'
+                },
+                {
+                    label: 'Facebook',
+                    value: 'fb'
+                }
+            ]
         }
-      ]
+    },
+    methods: {
+        open () {
+            this.opened = true
+        },
+        confirm () {
+            this.$restAPI.post({
+                req: 'expense',
+                action: 'addexpense',
+                data: {
+                    value: this.expense.value,
+                    date: this.expense.date,
+                    description: this.expense.description,
+                    category: '1'
+                }
+            }).then((resp) => {
+                this.opened = false
+            }).catch(() => {
+                this.opened = false
+            })
+        },
+        cancel () {
+            this.opened = false
+        },
+        backBtnCallback () {
+            if (this.opened) {
+                this.cancel()
+            }
+        },
+        loadCategories () {
+            console.log('categorias')
+        }
+    },
+    created () {
+        this.loadCategories()
+        this.$router.beforeEach((to, from, next) => {
+            if (from.path === '/' && this.opened) {
+                this.opened = false
+                next(false)
+            } else {
+                next()
+            }
+        })
     }
-  },
-  methods: {
-    open () {
-      this.opened = true
-    },
-    confirm () {
-      this.opened = false
-      console.log(this.expense)
-      this.loadCategories()
-    },
-    cancel () {
-        this.opened = false
-    },
-    backBtnCallback () {
-      if (this.opened) {
-        this.cancel()
-      }
-    },
-    loadCategories () {
-      console.log('categorias')
-    }
-  },
-  created () {
-    this.loadCategories()
-    this.$router.beforeEach((to, from, next) => {
-      if (from.path === '/' && this.opened) {
-        this.opened = false
-        next(false)
-      } else {
-        next()
-      }
-    })
-  }
 }
 </script>
 

@@ -5,7 +5,7 @@
         <template v-for="(expense, item) in expenses">
             <q-item :separator="true" :key="item">
                 <q-item-side color="secondary" icon="attach_money" />
-                <q-item-main :label="expense.value" :sublabel="expense.description"/>
+                <q-item-main :label="expense.value + ''" :sublabel="expense.description"/>
                 <q-item-tile>{{ expense.date }}</q-item-tile>
             </q-item>
         </template>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { Loading } from 'quasar'
 export default {
     data () {
         return {
@@ -21,15 +20,12 @@ export default {
         }
     },
     mounted () {
-        Loading.show()
-        let url = this.$wsConfig.baseUrl + '?req=expense&action=getall'
+        this.$restAPI.get({
+            req: 'expense',
+            action: 'getall'
 
-        this.$axios.get(url).then((response) => {
-            let data = response.data
+        }).then((data) => {
             this.expenses = data.expenses
-            Loading.hide()
-        }).catch(() => {
-            Loading.hide()
         })
     }
 }

@@ -55,8 +55,7 @@ export default {
     },
     login () {
       Loading.show()
-      let url = this.$wsConfig.baseUrl + '?req=user&action=getUserSession&login=' + this.user.login + '&pass=' + this.user.pass
-      console.log(url)
+      let url = this.$wsConfig.baseUrl + '?req=user&action=login&login=' + this.user.login + '&pass=' + this.user.pass
       this.$axios.get(url)
       .then((response) => {
         Loading.hide()
