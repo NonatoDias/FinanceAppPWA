@@ -1,27 +1,40 @@
 <template>
-  <q-modal v-model="opened" maximized>
+  <q-modal v-model="opened" >
     <q-modal-layout class="bg-grey-2">
-      <div class="layout-padding">
+      <header id="id-modal-header" class="bg-primary" style="min-height: 20px;"></header>
+      <div class="layout-padding bg-white">
         <div class="div-form-register ">
-          <p class="p-info">Formulário para registro de gastos</p>
+          <p class="p-info">Adicionar despesa</p>
           <div class="div-form-register-body">
             <q-field
-              icon="attach_money"
+              class="q-field-higher"
             >
-              <q-input type="number" prefix="R$" float-label="Valor"  v-model="expense.value" />
+              <q-input
+                type="number"
+                float-label="Valor"
+                v-model="expense.value"
+                :after="[
+                  {
+                    icon: 'attach_money'
+                  }
+                ]"/>
             </q-field>
             <q-field
-              icon="access_time"
+              class="field-margin"
+              helper="Pequeno resumo da despeza"
             >
-              <q-datetime
-                float-label="Data"
-                v-model="expense.date"
-                type="date"
-                ok-label="Definir"
+              <q-input
+                v-model="expense.description"
+                float-label="Descrição"
+                type="text"
+                :after="[
+                  {
+                    icon: 'textsms'
+                  }
+                ]"
               />
             </q-field>
             <q-field
-              icon="category"
               helper="Importante para relatórios"
             >
               <q-select
@@ -32,13 +45,12 @@
               />
             </q-field>
             <q-field
-              icon="textsms"
-              helper="Pequeno resumo da despeza"
             >
-              <q-input
-                v-model="expense.description"
-                float-label="Descrição"
-                type="text"
+              <q-datetime
+                float-label="Data"
+                v-model="expense.date"
+                type="date"
+                ok-label="Definir"
               />
             </q-field>
             <div class="div-form-register_buttons">
@@ -59,18 +71,26 @@ export default {
             opened: false,
             expense: {
                 date: new Date(),
-                value: 0,
+                value: null,
                 description: '',
                 category: null
             },
             categoryOptions: [
                 {
-                    label: 'Google',
-                    value: 'goog'
+                    label: 'Alimentação',
+                    value: '1'
                 },
                 {
-                    label: 'Facebook',
-                    value: 'fb'
+                    label: 'Transporte',
+                    value: '2'
+                },
+                {
+                    label: 'Saúde',
+                    value: '3'
+                },
+                {
+                    label: 'Lazer',
+                    value: '4'
                 }
             ]
         }
@@ -87,7 +107,7 @@ export default {
                     value: this.expense.value,
                     date: this.expense.date,
                     description: this.expense.description,
-                    category: '1'
+                    category_id: this.expense.category
                 }
             }).then((resp) => {
                 this.opened = false
@@ -122,13 +142,23 @@ export default {
 </script>
 
 <style scoped>
+
+#id-modal-header{
+  display: none;
+}
+
+.field-margin{
+  margin-bottom: 10px;
+}
+
 .q-field-helper{
   text-align: left;
 }
 .div-form-register{
   background: white;
-  max-width: 600px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);
+  margin: auto;
+  min-width: 400px;
+  /*box-shadow: 0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);*/
 }
 
 .div-form-register-body{
@@ -147,7 +177,28 @@ export default {
 
 .div-form-register_buttons{
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 760px){
+  #id-modal-header{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 460px){
+  .layout-padding{
+    padding-top: 0.5em;
+  }
+
+  .div-form-register{
+    box-shadow: none;
+    min-width: 100%;
+  }
+
+  .div-form-register-body{
+    padding: 0px 25px 10px;
+  }
 }
 
 </style>
