@@ -4,104 +4,104 @@ self.__precacheManifest = [
     "url": "fonts/KFOlCnqEu92Fr1MmEU9fBBc-.de8b7431.woff"
   },
   {
-    "revision": "e0098b9fc227761d2589f1b885421cd4",
+    "revision": "0fee7b85a92ff31da9b58f921b2325b1",
     "url": "index.html"
-  },
-  {
-    "revision": "c91486b5bf3819057542d1d5e507a1da",
-    "url": "statics/icons/finanpe-svg.svg"
-  },
-  {
-    "revision": "f6989e74df61449ae905",
-    "url": "js/26cf8012.41f4d513.js"
-  },
-  {
-    "revision": "e359e3e64146ee68db93c95d224eee2b",
-    "url": "statics/pwa/finanpe-384.png"
-  },
-  {
-    "revision": "ec3f7d00008f6571e9c7",
-    "url": "js/3b450982.a146e9be.js"
-  },
-  {
-    "revision": "5f555f833da228d34538e3556c519c72",
-    "url": "statics/pwa/finanpe-128.png"
-  },
-  {
-    "revision": "9a955d12478aca7c6009",
-    "url": "js/3bb05d94.2d61f4d0.js"
-  },
-  {
-    "revision": "38dc84bfad80f0bc4cb976619dfee3a0",
-    "url": "statics/pwa/finanpe-512.png"
-  },
-  {
-    "revision": "50cb5c783cf9f024ec4d",
-    "url": "js/4632e764.00daba54.js"
-  },
-  {
-    "revision": "4eab671588af6e5de403",
-    "url": "js/4b47640d.cb798a0e.js"
-  },
-  {
-    "revision": "3020c8ac2c2872dec7741e5948520093",
-    "url": "statics/quasar-logo.png"
-  },
-  {
-    "revision": "b367cd6539cf5c41a423",
-    "url": "js/6fc2fdb8.05a6b4a4.js"
-  },
-  {
-    "revision": "a13b2bd5261e2df374128df1aab93001",
-    "url": "statics/icons/icon-512x512.png"
-  },
-  {
-    "revision": "12fba9295bac3ee7ed06",
-    "url": "js/788dbe02.33176ade.js"
-  },
-  {
-    "revision": "7c4f529783fe3e625fc5da90279e8dae",
-    "url": "statics/pwa/finanpe-256.png"
-  },
-  {
-    "revision": "d7a524cf445761376c77",
-    "url": "js/app.3c1b0e3f.js"
-  },
-  {
-    "revision": "7b5b351db46b451fcdc586ed752909c3",
-    "url": "statics/pwa/finanpe-192.png"
-  },
-  {
-    "revision": "4cbe1d562d9ac9074bc5",
-    "url": "js/d7f6d912.f1f0c461.js"
-  },
-  {
-    "revision": "cddf6cb72a5032eccab6",
-    "url": "js/vendor.869bbff0.js"
   },
   {
     "revision": "66d7719a8ca03c1a591444c013802817",
     "url": "statics/icons/icon-384x384.png"
   },
   {
-    "revision": "ed12d10fd0407eea42ccaf7af7991146",
-    "url": "statics/icons/ms-icon-144x144.png"
+    "revision": "fef6f4de4e2a65eae0a0",
+    "url": "js/082f033a.5abb63ad.js"
+  },
+  {
+    "revision": "3020c8ac2c2872dec7741e5948520093",
+    "url": "statics/quasar-logo.png"
+  },
+  {
+    "revision": "f6989e74df61449ae905",
+    "url": "js/26cf8012.41f4d513.js"
+  },
+  {
+    "revision": "5f555f833da228d34538e3556c519c72",
+    "url": "statics/pwa/finanpe-128.png"
+  },
+  {
+    "revision": "ec3f7d00008f6571e9c7",
+    "url": "js/3b450982.a146e9be.js"
+  },
+  {
+    "revision": "c91486b5bf3819057542d1d5e507a1da",
+    "url": "statics/icons/finanpe-svg.svg"
+  },
+  {
+    "revision": "9a955d12478aca7c6009",
+    "url": "js/3bb05d94.2d61f4d0.js"
+  },
+  {
+    "revision": "4eab671588af6e5de403",
+    "url": "js/4b47640d.cb798a0e.js"
+  },
+  {
+    "revision": "38dc84bfad80f0bc4cb976619dfee3a0",
+    "url": "statics/pwa/finanpe-512.png"
+  },
+  {
+    "revision": "b367cd6539cf5c41a423",
+    "url": "js/6fc2fdb8.05a6b4a4.js"
+  },
+  {
+    "revision": "e359e3e64146ee68db93c95d224eee2b",
+    "url": "statics/pwa/finanpe-384.png"
+  },
+  {
+    "revision": "12fba9295bac3ee7ed06",
+    "url": "js/788dbe02.33176ade.js"
+  },
+  {
+    "revision": "7b5b351db46b451fcdc586ed752909c3",
+    "url": "statics/pwa/finanpe-192.png"
+  },
+  {
+    "revision": "33edde8fc9f4d3b546ee",
+    "url": "js/app.d7fe9d30.js"
+  },
+  {
+    "revision": "7c4f529783fe3e625fc5da90279e8dae",
+    "url": "statics/pwa/finanpe-256.png"
+  },
+  {
+    "revision": "4cbe1d562d9ac9074bc5",
+    "url": "js/d7f6d912.f1f0c461.js"
+  },
+  {
+    "revision": "ca0c5c13bfc5f96918e8",
+    "url": "js/vendor.77315873.js"
+  },
+  {
+    "revision": "a13b2bd5261e2df374128df1aab93001",
+    "url": "statics/icons/icon-512x512.png"
+  },
+  {
+    "revision": "3020c8ac2c2872dec7741e5948520093",
+    "url": "statics/icons/icon-128x128.png"
   },
   {
     "revision": "20c6420ccf16a07d9d56538e30a6b524",
     "url": "statics/icons/icon-256x256.png"
   },
   {
-    "revision": "2f9d7587924933c1912c342b190b53ca",
-    "url": "statics/icons/favicon-32x32.png"
+    "revision": "ed12d10fd0407eea42ccaf7af7991146",
+    "url": "statics/icons/ms-icon-144x144.png"
   },
   {
     "revision": "8c4120b4e88276badbc808e518572fad",
     "url": "statics/icons/icon-192x192.png"
   },
   {
-    "revision": "b375faa669b2680c2568",
-    "url": "js/01666039.1682748d.js"
+    "revision": "3706d50ae8a7458781d7",
+    "url": "js/06723449.fb39e9ac.js"
   },
   {
     "revision": "efb00e57304380d857603760600da5d5",
@@ -112,12 +112,12 @@ self.__precacheManifest = [
     "url": "statics/icons/apple-icon-152x152.png"
   },
   {
-    "revision": "3020c8ac2c2872dec7741e5948520093",
-    "url": "statics/icons/icon-128x128.png"
-  },
-  {
     "revision": "25f8fd0caa75a765da4c540351ab0a80",
     "url": "statics/icons/finanpe-logo.png"
+  },
+  {
+    "revision": "2f9d7587924933c1912c342b190b53ca",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "d4b6a229d7ae188fd8510dfc7a797da2",
@@ -152,36 +152,32 @@ self.__precacheManifest = [
     "url": "css/788dbe02.261a8ace.css"
   },
   {
+    "revision": "e9dbbe8a693dd275c16d32feb101f1c1",
+    "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
+  },
+  {
     "revision": "bafb105baeb22d965c70fe52ba6b49d9",
     "url": "fonts/KFOmCnqEu92Fr1Mu4mxM.bafb105b.woff"
-  },
-  {
-    "revision": "b367cd6539cf5c41a423",
-    "url": "css/6fc2fdb8.5d60a9c0.css"
-  },
-  {
-    "revision": "a1471d1d6431c893582a5f6a250db3f9",
-    "url": "fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
-  },
-  {
-    "revision": "8c2ade503b34e31430d6c98aa29a52a3",
-    "url": "fonts/KFOlCnqEu92Fr1MmYUtfBBc-.8c2ade50.woff"
   },
   {
     "revision": "cf6613d1adf490972c557a8e318e0868",
     "url": "fonts/KFOlCnqEu92Fr1MmWUlfBBc-.cf6613d1.woff"
   },
   {
-    "revision": "e9dbbe8a693dd275c16d32feb101f1c1",
-    "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
+    "revision": "8c2ade503b34e31430d6c98aa29a52a3",
+    "url": "fonts/KFOlCnqEu92Fr1MmYUtfBBc-.8c2ade50.woff"
   },
   {
-    "revision": "d7a524cf445761376c77",
-    "url": "css/app.031597d7.css"
+    "revision": "a1471d1d6431c893582a5f6a250db3f9",
+    "url": "fonts/KFOlCnqEu92Fr1MmSU5fBBc-.a1471d1d.woff"
   },
   {
-    "revision": "50cb5c783cf9f024ec4d",
-    "url": "css/4632e764.3dad694d.css"
+    "revision": "33edde8fc9f4d3b546ee",
+    "url": "css/app.0f693286.css"
+  },
+  {
+    "revision": "b367cd6539cf5c41a423",
+    "url": "css/6fc2fdb8.5d60a9c0.css"
   },
   {
     "revision": "9a955d12478aca7c6009",
@@ -196,7 +192,11 @@ self.__precacheManifest = [
     "url": "css/26cf8012.01664403.css"
   },
   {
-    "revision": "b375faa669b2680c2568",
-    "url": "css/01666039.bf241d19.css"
+    "revision": "fef6f4de4e2a65eae0a0",
+    "url": "css/082f033a.5083f105.css"
+  },
+  {
+    "revision": "3706d50ae8a7458781d7",
+    "url": "css/06723449.374bfd1d.css"
   }
 ];
