@@ -2,8 +2,18 @@ import axios from 'axios'
 import { Loading } from 'quasar'
 
 const baseUrl = 'https://psi-webdias.azurewebsites.net/'
+let onStatus = null // Definido em App.vue
+
+let _statusEvent_ = function (statusCode) {
+    if (onStatus instanceof Function && statusCode !== undefined && statusCode !== null) {
+        onStatus(statusCode)
+    }
+}
 
 let restAPI = {
+    setOnStatus: function (cb) { // Definido em App.vue
+        onStatus = cb
+    },
     /**
      *
      * @param {*} opt
@@ -23,6 +33,7 @@ let restAPI = {
         return new Promise((resolve, reject) => {
             axios.get(url).then(async (response) => {
                 Loading.hide()
+                _statusEvent_(response.data ? response.data.status_code : null)
                 resolve(response.data)
             }).catch((e) => {
                 Loading.hide()
@@ -42,6 +53,7 @@ let restAPI = {
         return new Promise((resolve, reject) => {
             axios.post(url, {data: opt.data}).then(async (response) => {
                 Loading.hide()
+                _statusEvent_(response.data ? response.data.status_code : null)
                 resolve(response.data)
             }).catch((e) => {
                 Loading.hide()

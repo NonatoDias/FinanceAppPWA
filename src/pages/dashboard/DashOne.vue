@@ -20,16 +20,19 @@
         :total="5">
       </card-total>
       <card-total
-        title="Saldo total"
+        title="Gastos totais"
         background-color="bg-teal-5"
         icon-name="attach_money"
-        :total="5">
+        :total="totalExpenses">
       </card-total>
     </div>
     <div style="margin-top: 20px;">
-      <mainList></mainList>
+      <mainList :expenses="expenses"></mainList>
     </div>
-    <add-expenses-modal ref="dialog"></add-expenses-modal>
+    <add-expenses-modal ref="dialog"
+      v-on:addedExpense="loadExpenses"
+      v-on:errorNotAdded="loadExpenses"
+    ></add-expenses-modal>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
         round
@@ -50,13 +53,27 @@ export default {
   name: 'DashOne',
   data () {
     return {
-      isExpensesOpend: true
+      isExpensesOpend: true,
+      expenses: [],
+      totalExpenses: 0
     }
   },
   methods: {
     addValue () {
       console.log(this.$refs.dialog.open())
+    },
+    loadExpenses () {
+      this.$restAPI.get({
+          req: 'expense',
+          action: 'getall'
+      }).then((data) => {
+          this.expenses = data.expenses
+          this.totalExpenses = data.total
+      })
     }
+  },
+  mounted () {
+    this.loadExpenses()
   },
   components: {
     CardTotal,

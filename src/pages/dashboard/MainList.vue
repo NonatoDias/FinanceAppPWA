@@ -14,20 +14,7 @@
 
 <script>
 export default {
-    data () {
-        return {
-            expenses: []
-        }
-    },
-    mounted () {
-        this.$restAPI.get({
-            req: 'expense',
-            action: 'getall'
-
-        }).then((data) => {
-            this.expenses = data.expenses
-        })
-    }
+    props: ['expenses']
 }
 </script>
 

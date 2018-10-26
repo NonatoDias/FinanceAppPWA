@@ -10,7 +10,9 @@
               class="q-field-higher"
             >
               <q-input
+                ref="invalue"
                 type="number"
+                :autofocus="true"
                 float-label="Valor"
                 v-model="expense.value"
                 :after="[
@@ -98,6 +100,7 @@ export default {
     methods: {
         open () {
             this.opened = true
+            // console.log('aqui', this.$refs.invalue)
         },
         confirm () {
             this.$restAPI.post({
@@ -111,7 +114,9 @@ export default {
                 }
             }).then((resp) => {
                 this.opened = false
+                this.$emit('addedExpense')
             }).catch(() => {
+                this.$emit('errorNotAdded')
                 this.opened = false
             })
         },
