@@ -47,8 +47,9 @@ export default {
         message: msg || 'Parece que o login ou a senha estão incorretos'
       })
     },
-    storeData (token) {
-      localStorage.setItem('sessionToken', token)
+    storeData (data) {
+      localStorage.setItem('sessionToken', data.userSession.st)
+      localStorage.setItem('usersession', JSON.stringify(data.userSession))
     },
     clearStorage () {
       localStorage.clear()
@@ -61,7 +62,7 @@ export default {
         Loading.hide()
         let data = response.data
         if (data.status_code === 200 && data.userSession) {
-          this.storeData(data.userSession.st)
+          this.storeData(data)
           this.$router.push('/')
         } else {
           this.alertError()

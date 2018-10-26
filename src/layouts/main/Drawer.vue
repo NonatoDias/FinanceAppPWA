@@ -49,7 +49,7 @@ export default {
         user: {
             fullname: 'Nonato Dias',
             login: 'nonato@gmail.com',
-            photo: 'https://avatars0.githubusercontent.com/u/25044027?s=460&v=4'
+            photo: 'statics/user/unknown.jpg'
         },
         leftDrawerOpen: this.$q.platform.is.desktop,
         links: {
