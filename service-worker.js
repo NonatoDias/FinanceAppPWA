@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.d40258faa4ae0858c5025fcaf74b1b3d.js"
+  "precache-manifest.1cd37f1f530e6b6d42614b9219715379.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "finanpe"});
