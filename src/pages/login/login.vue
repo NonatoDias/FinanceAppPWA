@@ -24,10 +24,10 @@
               <q-btn flat rounded size="sm" color="primary" label="Esqueci a senha"  @click="forgotPass()" />
             </div>
           </div>
-          <div v-else-if="formName === 'singup'">
-            <signup></signup>
+          <div v-else-if="formName === 'signup'">
+            <signup v-on:addedUser="loginPage"></signup>
           </div>
-          <div v-else-if="formName === 'forgotpass'">
+          <div v-else-if="formName === 'forgotPass'">
             <forgot-pass></forgot-pass>
           </div>
           <div v-if="formName !== 'login'" class="div-btns no-padding">
@@ -93,7 +93,12 @@ export default {
       this.user.pass = ''
     },
     signup () {
-      this.formName = 'singup'
+      this.formName = 'signup'
+      this.user.login = ''
+      this.user.pass = ''
+    },
+    loginPage () {
+      this.formName = 'login'
       this.user.login = ''
       this.user.pass = ''
     }

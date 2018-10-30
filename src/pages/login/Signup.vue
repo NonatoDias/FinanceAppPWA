@@ -52,13 +52,23 @@ export default {
             let d = JSON.stringify(this.form)
             this.$restAPI.post({
                 req: 'user',
-                action: 'addexpense',
+                action: 'createuser',
                 hasSession: false,
                 data: JSON.parse(d)
             }).then((resp) => {
-                console.log(resp)
+                if (resp.status_code === 200) {
+                    this.notifySuccess()
+                    this.$emit('addedUser')
+                }
             }).catch(() => {
                 console.log('error')
+            })
+        },
+        notifySuccess () {
+            this.$q.notify({
+                message: 'Usuário ' + this.form.name + ' cadastrado com sucesso!',
+                color: 'primary',
+                icon: 'check_circle'
             })
         }
     }
