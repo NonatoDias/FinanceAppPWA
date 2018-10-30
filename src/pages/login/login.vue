@@ -7,7 +7,8 @@
           <!-- <span class="span-header">FINANPE</span> -->
         </div>
         <div class="login-form-body">
-          <q-field
+          <div v-if="formName === 'login'">
+            <q-field
               icon="account_circle"
             >
               <q-input type="text" float-label="Login"  v-model="user.login" />
@@ -22,6 +23,16 @@
               <q-btn outline rounded size="md" color="primary" label="Cadastrar"  @click="signup()" />
               <q-btn flat rounded size="sm" color="primary" label="Esqueci a senha"  @click="forgotPass()" />
             </div>
+          </div>
+          <div v-else-if="formName === 'singup'">
+            <signup></signup>
+          </div>
+          <div v-else-if="formName === 'forgotpass'">
+            <forgot-pass></forgot-pass>
+          </div>
+          <div v-if="formName !== 'login'" class="div-btns no-padding">
+              <q-btn flat rounded size="sm" color="primary" label="Voltar"  @click="formName='login'" />
+            </div>
         </div>
       </div>
     </div>
@@ -29,15 +40,17 @@
 </template>
 
 <script>
-import { Loading } from 'quasar'
+import Signup from './Signup.vue'
+import ForgotPass from './ForgotPass.vue'
 export default {
   // name: 'PageName',
   data () {
     return {
       user: {
-        login: 'admin',
+        login: '',
         pass: ''
-      }
+      },
+      formName: 'login'
     }
   },
   methods: {
@@ -55,41 +68,50 @@ export default {
       localStorage.clear()
     },
     login () {
-      Loading.show()
-      let url = this.$wsConfig.baseUrl + '?req=user&action=login&login=' + this.user.login + '&pass=' + this.user.pass
-      this.$axios.get(url)
-      .then((response) => {
-        Loading.hide()
-        let data = response.data
-        if (data.status_code === 200 && data.userSession) {
-          this.storeData(data)
+      this.$restAPI.get({
+          req: 'user',
+          action: 'login',
+          data: {
+              login: this.user.login,
+              pass: this.user.pass,
+              hasSession: false
+          }
+      }).then((resp) => {
+        if (resp.status_code === 200 && resp.userSession) {
+          this.storeData(resp)
           this.$router.push('/')
         } else {
           this.alertError()
         }
-      })
-      .catch((error) => {
-        this.alertError('Erro ao conectar no servidor' + error)
-        Loading.hide()
+      }).catch(() => {
+          this.alertError()
       })
     },
     forgotPass () {
-      console.log('nao definido')
+      this.formName = 'forgotpass'
+      this.user.login = ''
+      this.user.pass = ''
     },
     signup () {
-      console.log('nao definido')
+      this.formName = 'singup'
+      this.user.login = ''
+      this.user.pass = ''
     }
   },
   created () {
     this.clearStorage()
+  },
+  components: {
+    Signup,
+    ForgotPass
   }
 }
 </script>
 
-<style scoped>
+<style>
 .page-bg{
   background-color: whitesmoke;
-  background-image: url('../statics/bg/bg-desktop.jpg');
+  background-image: url('../../statics/bg/bg-desktop.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -97,7 +119,7 @@ export default {
   text-align: center;
   min-height: 220px;
   background-color: white;
-  width: 380px;
+  width: 360px;
 }
 
 .login-form-header{
@@ -115,6 +137,10 @@ export default {
 
 .div-btns{
   padding-top: 20px;
+}
+
+.div-btns.no-padding{
+  padding-top: 0px;
 }
 
 .div-btns .q-btn{
@@ -143,7 +169,7 @@ export default {
 
 @media screen and (max-width: 720px){
   .page-bg{
-    background-image: url('../statics/bg/bg-mobile.jpg');
+    background-image: url('../../statics/bg/bg-mobile.jpg');
   }
 }
 </style>

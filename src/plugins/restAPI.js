@@ -30,6 +30,10 @@ let restAPI = {
 
         Loading.show()
         let url = baseUrl + '?req=' + opt.req + '&action=' + opt.action + query
+        if (opt.data) {
+            let p_ = Object.keys(opt.data).reduce((acc, k) => { return acc + k + '=' + opt.data[k] + '&' }, '')
+            url += '&' + p_.slice(0, -1)
+        }
         return new Promise((resolve, reject) => {
             axios.get(url).then(async (response) => {
                 Loading.hide()

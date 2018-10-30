@@ -12,7 +12,10 @@ export default {
     logout () {
       this.$router.push('/login')
       localStorage.removeItem('sessionToken')
-      this.notify('Sessão expirou!')
+      let currentPath = this.$router.currentRoute.path
+      if (currentPath !== '/login') {
+        this.notify('Sessão expirou!')
+      }
     },
     notify: function (msg) {
       Notify.create({
