@@ -8,16 +8,21 @@
         </div>
         <div class="login-form-body">
           <div v-if="formName === 'login'">
-            <q-field
-              icon="account_circle"
-            >
-              <q-input type="text" float-label="Login"  v-model="user.login" />
-            </q-field>
-            <q-field
-              icon="vpn_key"
-            >
-              <q-input type="password" @keyup.enter="login()" float-label="senha"  v-model="user.pass" />
-            </q-field>
+            <div style="text-align: left;">
+              <q-field
+                icon="account_circle"
+                :error="$v.user.login.$error"
+              >
+                <q-input type="text" float-label="Login"  v-model="user.login" @keyup.enter="login()"/>
+              </q-field>
+              <q-field
+                icon="vpn_key"
+                :error="$v.user.pass.$error"
+                error-label="Este campo é obrigatório!"
+              >
+                <q-input type="password" @keyup.enter="login()" float-label="senha"  v-model="user.pass" />
+              </q-field>
+            </div>
             <div class="div-btns">
               <q-btn rounded size="md" color="primary" label="Entrar"  @click="login()" />
               <q-btn outline rounded size="md" color="primary" label="Cadastrar"  @click="signup()" />
@@ -42,6 +47,7 @@
 <script>
 import Signup from './Signup.vue'
 import ForgotPass from './ForgotPass.vue'
+import { required } from 'vuelidate/lib/validators'
 export default {
   // name: 'PageName',
   data () {
@@ -68,6 +74,11 @@ export default {
       localStorage.clear()
     },
     login () {
+      this.$v.user.$touch()
+      if (this.$v.user.$error) { // Error
+          this.$q.notify('Por favor, revise os campos novamente!')
+          return
+      }
       this.$restAPI.get({
           req: 'user',
           action: 'login',
@@ -109,12 +120,18 @@ export default {
   components: {
     Signup,
     ForgotPass
+  },
+  validations: {
+    user: {
+        login: { required },
+        pass: { required }
+    }
   }
 }
 </script>
 
 <style>
-.page-bg{
+body{
   background-color: whitesmoke;
   background-image: url('../../statics/bg/bg-desktop.jpg');
   background-repeat: no-repeat;
@@ -171,7 +188,7 @@ export default {
 }
 
 @media screen and (max-width: 720px){
-  .page-bg{
+  body{
     background-image: url('../../statics/bg/bg-mobile.jpg');
   }
 }

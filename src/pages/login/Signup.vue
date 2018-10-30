@@ -69,9 +69,11 @@ export default {
                 if (resp.status_code === 200) {
                     this.notifySuccess()
                     this.$emit('addedUser')
+                } else {
+                    this.notifyFail()
                 }
             }).catch(() => {
-                console.log('error')
+                this.notifyFail()
             })
         },
         notifySuccess () {
@@ -79,6 +81,12 @@ export default {
                 message: 'Usuário ' + this.form.name + ' cadastrado com sucesso!',
                 color: 'primary',
                 icon: 'check_circle'
+            })
+        },
+        notifyFail () {
+            this.$q.notify({
+                message: 'Erro ao criar usuário',
+                color: 'negative'
             })
         }
     },

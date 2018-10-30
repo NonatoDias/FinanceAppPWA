@@ -1,12 +1,12 @@
 <template>
     <q-layout-drawer
       v-model="leftDrawerOpen"
-      :content-class="$q.theme === 'mat' ? 'bg-white' : null"
+      :content-class="$q.theme === 'mat' ? 'bg-white menu-width' : null"
     >
       <div id="profile">
         <img :src="user.photo" class="inline-block">
         <div class="user-description">
-            <span class="span-title">{{user.fullname}}</span>
+            <span class="span-title">{{user.name}}</span>
             <span class="span-subtitle">{{user.login}}</span>
             <q-btn
                 class="btn-logout"
@@ -47,8 +47,8 @@ export default {
     return {
         currentPath: this.$router.currentRoute.path,
         user: {
-            fullname: 'Nonato Dias',
-            login: 'nonato@gmail.com',
+            name: '',
+            login: '',
             photo: 'statics/user/unknown.jpg'
         },
         leftDrawerOpen: this.$q.platform.is.desktop,
@@ -61,6 +61,7 @@ export default {
             },
             'Definições': {
                 routes: [
+                    { route: '/profile', faIcon: 'fa fa-bell-o', materialIcon: 'perm_identity', name: 'Perfil' },
                     { route: '/my-goals', faIcon: 'fa fa-bell-o', materialIcon: 'thumb_up', name: 'Minhas Metas' },
                     { route: '/alerts', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Alertas' },
                     { route: '/category-all', faIcon: 'fa fa-cog', materialIcon: 'build', name: 'Ajuste de categorias' }
@@ -68,6 +69,17 @@ export default {
             }
         }
     }
+  },
+  mounted () {
+        let uJson = localStorage.getItem('usersession')
+        if (uJson && uJson.length) {
+            const u = JSON.parse(uJson)
+            this.user.name = u.name
+            this.user.login = u.login
+            if (u.photo && u.photo.length) {
+               this.user.photo = u.photo
+            }
+        }
   },
   methods: {
     toggleMenu () {
@@ -147,4 +159,11 @@ export default {
     border-right: 2px solid #027be3;
 }
 
+</style>
+<style>
+@media screen and (max-width: 410px){
+    .menu-width{
+        width: 265px !important;
+    }
+}
 </style>

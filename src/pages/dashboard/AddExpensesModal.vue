@@ -8,6 +8,8 @@
           <div class="div-form-register-body">
             <q-field
               class="q-field-higher"
+              :error="$v.expense.value.$error"
+              error-label="Este campo é obrigatório!"
             >
               <q-input
                 ref="invalue"
@@ -15,11 +17,24 @@
                 :autofocus="true"
                 float-label="Valor"
                 v-model="expense.value"
+                :step="0.01"
                 :after="[
                   {
                     icon: 'attach_money'
                   }
                 ]"/>
+            </q-field>
+            <q-field
+              helper="Importante para relatórios"
+              :error="$v.expense.category.$error"
+              error-label="Este campo é obrigatório!"
+            >
+              <q-select
+                v-model="expense.category"
+                float-label="Categoria"
+                radio
+                :options="categoryOptions"
+              />
             </q-field>
             <q-field
               class="field-margin"
@@ -34,16 +49,6 @@
                     icon: 'textsms'
                   }
                 ]"
-              />
-            </q-field>
-            <q-field
-              helper="Importante para relatórios"
-            >
-              <q-select
-                v-model="expense.category"
-                float-label="Categoria"
-                radio
-                :options="categoryOptions"
               />
             </q-field>
             <q-field
@@ -67,6 +72,7 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 export default {
     data () {
         return {
@@ -100,25 +106,35 @@ export default {
     methods: {
         open () {
             this.opened = true
-            // console.log('aqui', this.$refs.invalue)
+            this.expense = {
+                date: new Date(),
+                value: null,
+                description: '',
+                category: null
+              }
         },
         confirm () {
-            this.$restAPI.post({
-                req: 'expense',
-                action: 'addexpense',
-                data: {
-                    value: this.expense.value,
-                    date: this.expense.date,
-                    description: this.expense.description,
-                    category_id: this.expense.category
-                }
-            }).then((resp) => {
-                this.opened = false
-                this.$emit('addedExpense')
-            }).catch(() => {
-                this.$emit('errorNotAdded')
-                this.opened = false
-            })
+          this.$v.expense.$touch()
+          if (this.$v.expense.$error) { // Error
+              this.$q.notify('Por favor, revise os campos novamente!')
+              return
+          }
+          this.$restAPI.post({
+              req: 'expense',
+              action: 'addexpense',
+              data: {
+                  value: this.expense.value,
+                  date: this.expense.date,
+                  description: this.expense.description,
+                  category_id: this.expense.category
+              }
+          }).then((resp) => {
+              this.opened = false
+              this.$emit('addedExpense')
+          }).catch(() => {
+              this.$emit('errorNotAdded')
+              this.opened = false
+          })
         },
         cancel () {
             this.opened = false
@@ -142,6 +158,12 @@ export default {
                 next()
             }
         })
+    },
+    validations: {
+        expense: {
+            value: { required },
+            category: { required }
+        }
     }
 }
 </script>
