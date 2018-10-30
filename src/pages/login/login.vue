@@ -27,7 +27,7 @@
           <div v-else-if="formName === 'signup'">
             <signup v-on:addedUser="loginPage"></signup>
           </div>
-          <div v-else-if="formName === 'forgotPass'">
+          <div v-else-if="formName === 'forgotpass'">
             <forgot-pass></forgot-pass>
           </div>
           <div v-if="formName !== 'login'" class="div-btns no-padding">
@@ -137,7 +137,7 @@ export default {
 }
 
 .login-form-body{
-  padding: 10px 40px 30px 40px;
+  padding: 10px 35px 30px 35px;
 }
 
 .div-btns{
