@@ -3,7 +3,7 @@
     <div class="row justify-center items-center" style="height: 100vh; overflow: auto;">
       <div class="login-form shadow-2" >
         <div class="login-form-header items-center">
-          <img src="statics/icons/finanpe-logo.png" class="img-logo" alt="" srcset="">
+          <img src="statics/icons/logo.png" class="img-logo" alt="" srcset="">
           <!-- <span class="span-header">FINANPE</span> -->
         </div>
         <div class="login-form-body">
@@ -154,16 +154,14 @@ export default {
 }
 
 .img-logo{
-  height: 85px;
+  height: 60px;
+  padding-right: 20px;
+  margin-top: 14px;
 }
 
 @media screen and (max-width: 420px){
   .login-form{
-    width: 97%;
-  }
-
-  .img-logo{
-    height: 70px;
+    width: 91%;
   }
 
   .login-form-body, .login-form-header{
