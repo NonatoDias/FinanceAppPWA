@@ -70,6 +70,14 @@ export default {
           this.expenses = data.expenses
           this.totalExpenses = data.total
       })
+
+      if (navigator.onLine === false) {
+      this.$q.notify({
+        message: 'Sem internet. App funcionando no modo offline!',
+        color: 'tertiary',
+        icon: 'wifi_off'
+      })
+    }
     }
   },
   mounted () {
