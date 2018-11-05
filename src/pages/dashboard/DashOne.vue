@@ -10,21 +10,32 @@
         title="Meta"
         background-color="bg-teal-7"
         icon-name="sentiment_very_satisfied"
-        :total="5">
+        :total="'25 R$ por dia'">
       </card-total>
       <card-total
         class="hide-mobile"
-        title="Gastos do Mês"
-        background-color="bg-red-6"
+        title="Despezas de hoje"
+        background-color="bg-blue"
         icon-name="mood_bad"
-        :total="5">
+        :total="totalExpensesToday">
       </card-total>
       <card-total
-        title="Gastos totais"
+        class="hide-mobile"
+        title="Despezas totais"
         background-color="bg-teal-5"
         icon-name="attach_money"
+        :totalToday="totalExpensesToday"
         :total="totalExpenses">
       </card-total>
+      <card-total-mobile
+        class="show-mobile"
+        title="Despezas de hoje"
+        title2="TOTAL"
+        background-color="bg-teal-5"
+        icon-name="sentiment_very_satisfied"
+        :total="totalExpenses"
+        :lines="['META: 25 R$ por dia']">
+      </card-total-mobile>
     </div>
     <div style="margin-top: 20px;">
       <mainList :expenses="expenses"></mainList>
@@ -46,6 +57,7 @@
 </template>
 
 <script>
+import CardTotalMobile from './CardTotalMobile.vue'
 import CardTotal from './CardTotal.vue'
 import MainList from './MainList.vue'
 import AddExpensesModal from './AddExpensesModal.vue'
@@ -55,7 +67,8 @@ export default {
     return {
       isExpensesOpend: true,
       expenses: [],
-      totalExpenses: 0
+      totalExpenses: 0,
+      totalExpensesToday: 0
     }
   },
   methods: {
@@ -69,6 +82,7 @@ export default {
       }).then((data) => {
           this.expenses = data.expenses
           this.totalExpenses = data.total
+          this.totalExpensesToday = data.totalTody ? data.totalTody : 0
       })
 
       if (navigator.onLine === false) {
@@ -86,15 +100,22 @@ export default {
   components: {
     CardTotal,
     MainList,
-    AddExpensesModal
+    AddExpensesModal,
+    CardTotalMobile
   }
 }
 </script>
 
 <style scoped>
+.show-mobile{
+  display: none !important;
+}
 @media screen and (max-width: 600px){
   .hide-mobile{
     display: none !important;
+  }
+  .show-mobile{
+    display: inline-block !important;
   }
 }
 </style>

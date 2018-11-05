@@ -1,6 +1,8 @@
 <template>
   <q-page padding>
-    <!-- content -->
+    <div class="content-header" style="padding-bottom: 16px">
+      <span class="vertical-bottom content-header-title">Relatorio Geral</span>
+    </div>
   </q-page>
 </template>
 
