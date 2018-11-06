@@ -4,6 +4,7 @@
  */
 
 let prefix__ = "finanpe";
+let urlWS_ = 'psi-webdias.azurewebsites.net';
 workbox.core.setCacheNameDetails({prefix: prefix__});
 
 
@@ -20,10 +21,15 @@ let expenseModule = {
     },
     actions: {
         GET: {
-            getall: function(url, request, cachedResponse){
-                // expenseModule.store.getall = json_;
-                console.log(url + " ___________ 2 ___ ", request)
-                return cachedResponse;
+            getall: async function(url, request, response){
+                return response.clone().json().then((json_) => {
+                    json_.status_offline = true;
+                    return createResponse(200, json_)
+
+                }).catch((e)=>{
+                    console.error('error getall', e)
+                    return response;
+                })
             }
         },
         POST: {
@@ -41,12 +47,17 @@ let routesFromReq = {
 }
 
 
-function createResponseOK(data){
+function createResponse(status, data){
     let blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'});
-    let init = { 'status' : 200 , '' : '' };
+    let init = { 'status' : status || 200 , '' : '' };
     return new Response(blob,init);
 }
 
+/**
+ * 
+ * @param {*} searchParams 
+ * @param {*} method 
+ */
 function getActionCallback(searchParams, method){
     let mtd_ = method ? method : 'GET';
     let routeFromReq_ = routesFromReq[searchParams.get('req')];
@@ -59,47 +70,91 @@ function getActionCallback(searchParams, method){
 
         //Has action ?
         if(act_ instanceof Function){
+            console.log('*********** metodo '+ mtd_, act_)
             return act_;
         }
     }
     return false;
 }
 
+/**
+ * 
+ * @param {*} param0 
+ */
 const matchWSGET = ({url, event}) => {
-    if(url.host.includes('psi-webdias.azurewebsites.net')){
+    if(url.host.includes(urlWS_)){
         let searchParams = url.searchParams;
         return getActionCallback(searchParams, 'GET') ? true : false;
     }
     return false;
 };
 
-workbox.routing.registerRoute(matchWSGET,
-    workbox.strategies.staleWhileRevalidate({
-      cacheName: prefix__+'-json',
-      plugins: [
+workbox.routing.registerRoute(matchWSGET, workbox.strategies.staleWhileRevalidate({
+    cacheName: prefix__+'-json',
+    plugins: [
         new workbox.expiration.Plugin({
-          maxEntries: 60,
-          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
         }),
         {
-            cachedResponseWillBeUsed: async ({cacheName, request, matchOptions, cachedResponse, event}) => {
+            //cachedResponseWillBeUsed: async ({cacheName, request, matchOptions, cachedResponse, event}) => {
+            /*cacheWillUpdate: async ({request, response, event})  => {
                 let url = new URL(request.url);
                 let searchParams = url.searchParams;
                 let act_ = getActionCallback(searchParams, 'GET');
                 if(act_){
-                    return act_(url, request, cachedResponse);
+                    return await act_(url, request, response);
                 }
-                return cachedResponse;
-            }
+                return response;
+            },*/
+            cacheWillUpdate: async ({request, response, event})  => {
+                return response.clone().json().then((json_) => {
+                    json_.status_cached = true;
+                    return createResponse(200, json_)
+                }).catch((e)=>{
+                    console.error('error status cache', e)
+                    return response;
+                })
+            },
         }
-        /*,
+    ],
+}));
+
+/******************************************************** */
+
+/**
+ * 
+ * @param {*} param0 
+ */
+const matchWSPOST = ({url, event}) => {
+    if(url.host.includes(urlWS_)){
+        let searchParams = url.searchParams;
+        return getActionCallback(searchParams, 'POST') ? true : false;
+    }
+    return false;
+};
+
+workbox.routing.registerRoute(matchWSPOST, workbox.strategies.networkOnly({
+    plugins: [
         new workbox.backgroundSync.Plugin( //POST
             prefix__+'-bck_sync'
-        )*/
-      ],
-    }),
-  );
+        )
+    ],
+}), 'POST');
 
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************** */
 
 /**
  * GET routes
