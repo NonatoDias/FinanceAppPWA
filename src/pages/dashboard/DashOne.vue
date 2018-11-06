@@ -24,7 +24,6 @@
         title="Despezas totais"
         background-color="bg-teal-5"
         icon-name="attach_money"
-        :totalToday="totalExpensesToday"
         :total="totalExpenses">
       </card-total>
       <card-total-mobile
@@ -34,6 +33,7 @@
         background-color="bg-teal-5"
         icon-name="sentiment_very_satisfied"
         :total="totalExpenses"
+        :totalToday="totalExpensesToday"
         :lines="['META: 25 R$ por dia']">
       </card-total-mobile>
     </div>
@@ -82,7 +82,7 @@ export default {
       }).then((data) => {
           this.expenses = data.expenses
           this.totalExpenses = data.total
-          this.totalExpensesToday = data.totalTody ? data.totalTody : 0
+          this.totalExpensesToday = data.totalToday ? data.totalToday : 0
       })
 
       if (navigator.onLine === false) {

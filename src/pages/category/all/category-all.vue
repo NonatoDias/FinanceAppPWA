@@ -9,7 +9,7 @@
         <q-item-separator />
         <template v-for="(category, item) in categories">
             <q-item :separator="true" :key="item">
-                <q-item-side color="secondary" icon="category" />
+                <q-item-side color="light-blue" :icon="category.icon || 'category'" />
                 <q-item-main :label="category.name + ''" />
                 <q-item-tile>
                   <q-btn icon="edit" size="sm" color="secondary" @click="editCategory" rounded/>
@@ -52,7 +52,7 @@ export default {
         req: 'category',
         action: 'getall'
     }).then((data) => {
-        this.categories = data.categoris
+        this.categories = data.categories
     })
   }
 }
