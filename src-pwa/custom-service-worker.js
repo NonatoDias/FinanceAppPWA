@@ -3,50 +3,45 @@
  * @author Nonato Dias
  */
 
-let prefix__ = "finanpe";
-let hostWS_ = 'psi-webdias.azurewebsites.net';
-let urlWS_ = 'https://'+hostWS_+'/';
-workbox.core.setCacheNameDetails({prefix: prefix__});
+const cfg = {
+    prefix = "finanpe",
+    hostWS = 'psi-webdias.azurewebsites.net',
+    urlWS = 'https://psi-webdias.azurewebsites.net/',
+    timeoutSync: 2 * 60 * 1000
+}
 
-
+workbox.core.setCacheNameDetails({prefix: cfg.prefix});
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-/*********************************** */
-/* expense MODULE */
 
-let expenseModule = {
-    store: {
-        getall: {}
-    },
-    actions: {
-        GET: {
-            getall: async function(url, request, response){
-                return response.clone().json().then((json_) => {
-                    json_.status_offline = true;
-                    return createResponse(200, json_)
-
-                }).catch((e)=>{
-                    console.error('error getall', e)
-                    return response;
-                })
-            }
-        },
-        POST: {
-            addexpense: function() {
-
+/****************************************************
+ *               OFFLINE REQUESTS                   *
+ ****************************************************/
+let routesFromReq = {
+    'expense': {
+        actions: {
+            GET: {
+                'getall': true
+            },
+            POST: {
+                'addexpense': true
             }
         }
     }
 }
 
-/*********************************** */
-/* ROTAS */
-let routesFromReq = {
-    'expense': expenseModule
-}
+function hasOfflineRoute_(searchParams, method){
+    let mtd_ = method ? method : 'GET';
+    let req_ = routesFromReq[searchParams.get('req')];
+    let act_ = searchParams.get('action');
 
+    if(req_ && act_ && req_.actions && req_.actions[mtd_] && req_.actions[mtd_][act_]){
+        return true;
+    }
+    return false;
+}
 
 function createResponse(status, data){
     let blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'});
@@ -54,43 +49,27 @@ function createResponse(status, data){
     return new Response(blob,init);
 }
 
-/**
- * 
- * @param {*} searchParams 
- * @param {*} method 
- */
-function getActionCallback(searchParams, method){
-    let mtd_ = method ? method : 'GET';
-    let routeFromReq_ = routesFromReq[searchParams.get('req')];
-
-    //Has route ?
-    if(routeFromReq_ && routeFromReq_.actions && routeFromReq_.actions[mtd_]){
-        let actions_ = routeFromReq_.actions[mtd_];
-        const a_ = searchParams.get('action');
-        let act_ = actions_[a_];
-
-        //Has action ?
-        if(act_ instanceof Function){
-            return act_;
-        }
-    }
-    return false;
-}
+/****************************************************
+ *                  GET REQUESTS                    *
+ ****************************************************/
 
 /**
  * 
  * @param {*} param0 
  */
 const matchWSGET = ({url, event}) => {
-    if(url.host.includes(hostWS_)){
+    if(url.host.includes(cfg.hostWS)){
         let searchParams = url.searchParams;
-        return getActionCallback(searchParams, 'GET') ? true : false;
+        return hasOfflineRoute_(searchParams, 'GET');
     }
     return false;
 };
 
+/**
+ * Strategy staleWhileRevalidate
+ */
 workbox.routing.registerRoute(matchWSGET, workbox.strategies.staleWhileRevalidate({
-    cacheName: prefix__+'-json',
+    cacheName: cfg.prefix+'-json',
     plugins: [
         new workbox.expiration.Plugin({
             maxEntries: 60,
@@ -110,24 +89,28 @@ workbox.routing.registerRoute(matchWSGET, workbox.strategies.staleWhileRevalidat
     ],
 }));
 
-/******************************************************** */
-
+/****************************************************
+ *                 POST REQUESTS                    *
+ ****************************************************/
 /**
  * 
  * @param {*} param0 
  */
 const matchWSPOST = ({url, event}) => {
-    if(url.host.includes(hostWS_)){
+    if(url.host.includes(cfg.hostWS)){
         let searchParams = url.searchParams;
-        return getActionCallback(searchParams, 'POST') ? true : false;
+        return hasOfflineRoute_(searchParams, 'POST');
     }
     return false;
 };
 
-const queue = new workbox.backgroundSync.Queue(prefix__+'-bck_sync', {
+const queue = new workbox.backgroundSync.Queue(cfg.prefix+'-bck_sync', {
     maxRetentionTime: 30 * 24 * 60 // Retry for max n minutes
 });
 
+/**
+ * Strategy networkOnly
+ */
 workbox.routing.registerRoute(matchWSPOST, workbox.strategies.networkOnly({
     plugins: [
         {
@@ -139,18 +122,19 @@ workbox.routing.registerRoute(matchWSPOST, workbox.strategies.networkOnly({
 }), 'POST');
 
 
-/************************************************************* */
+/****************************************************
+ *                  SYNCHRONIZING                   *
+ ****************************************************/
 let loopInterval_ = null;
 
 function loop_(){
     clearTimeout(loopInterval_)
 
     loopInterval_ = setTimeout(()=>{
-        console.log('\nSincronizando com ws '+ new Date() +' ... ');
-        fetch(urlWS_ + '?req=api&action=sync').then(function(resp_){
+        // console.log('\nSincronizando com ws '+ new Date() +' ... ');
+        fetch(cfg.urlWS + '?req=api&action=sync').then(function(resp_){
             return resp_.json().then(function(json) {
                 queue.replayRequests().then(()=>{
-                    console.log('   ok replayed')
                     loop_();
                 }).catch(()=>{
                     console.error('   error replayed')
@@ -162,7 +146,7 @@ function loop_(){
             loop_();
         })
 
-    }, 60 * 1000)
-}
+    }, cgf.timeoutSync)
+} 
 
 loop_();
