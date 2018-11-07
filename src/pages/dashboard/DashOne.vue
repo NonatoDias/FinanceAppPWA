@@ -67,13 +67,25 @@ export default {
     return {
       isExpensesOpend: true,
       expenses: [],
+      categories: [],
       totalExpenses: 0,
       totalExpensesToday: 0
     }
   },
   methods: {
     addValue () {
-      console.log(this.$refs.dialog.open())
+      this.$refs.dialog.open()
+    },
+    loadCategories () {
+      this.$restAPI.get({
+          req: 'category',
+          action: 'getall'
+      }).then((data) => {
+          this.categories = data.categories
+      })
+    },
+    getOfflineExpenses () {
+      return this.$offlineStorage.get('offlineExpenses', [])
     },
     loadExpenses () {
       this.$restAPI.get({
@@ -83,8 +95,25 @@ export default {
             month: new Date().getMonth()
           }
       }).then((data) => {
-          this.expenses = data.expenses
-          this.totalExpenses = data.total
+          let auxArray = []
+          let auxTotal = 0
+          // let auxTotalToday = 0
+          this.getOfflineExpenses().forEach((exp, i) => {
+            const test = data.expenses.every((exp2, j) => {
+              if (!(exp.description === exp2.description && exp.value === exp2.value)) {
+                return true
+              }
+              return false
+            })
+            if (test) {
+              auxArray.push(exp)
+              auxTotal += exp.value
+              // auxTotalToday +=exp.value
+            }
+          })
+          this.$offlineStorage.set('offlineExpenses', auxArray)
+          this.expenses = [...auxArray, ...data.expenses]
+          this.totalExpenses = data.total + auxTotal
           this.totalExpensesToday = data.totalToday ? data.totalToday : 0
       })
 
@@ -98,6 +127,7 @@ export default {
     }
   },
   mounted () {
+    // this.loadCategories()
     this.loadExpenses()
   },
   components: {

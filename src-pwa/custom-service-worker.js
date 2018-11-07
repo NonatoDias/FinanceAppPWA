@@ -4,9 +4,9 @@
  */
 
 const cfg = {
-    prefix = "finanpe",
-    hostWS = 'psi-webdias.azurewebsites.net',
-    urlWS = 'https://psi-webdias.azurewebsites.net/',
+    prefix: "finanpe",
+    hostWS: 'psi-webdias.azurewebsites.net',
+    urlWS: 'https://psi-webdias.azurewebsites.net/',
     timeoutSync: 2 * 60 * 1000
 }
 
@@ -27,6 +27,13 @@ let routesFromReq = {
             },
             POST: {
                 'addexpense': true
+            }
+        }
+    },
+    'category': {
+        actions: {
+            GET: {
+                'getall': true
             }
         }
     }
@@ -78,8 +85,12 @@ workbox.routing.registerRoute(matchWSGET, workbox.strategies.staleWhileRevalidat
         {
             cacheWillUpdate: async ({request, response, event})  => {
                 return response.clone().json().then((json_) => {
-                    json_.status_cached = true;
-                    return createResponse(200, json_)
+                    if(json_.status_code == 200){
+                        json_.status_cached = true;
+                        return createResponse(200, json_)
+                    }
+                    return null;
+                    
                 }).catch((e)=>{
                     console.error('error status cache', e)
                     return response;
@@ -146,7 +157,7 @@ function loop_(){
             loop_();
         })
 
-    }, cgf.timeoutSync)
+    }, cfg.timeoutSync)
 } 
 
 loop_();

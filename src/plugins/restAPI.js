@@ -4,9 +4,9 @@ import { Loading } from 'quasar'
 const baseUrl = 'https://psi-webdias.azurewebsites.net/'
 let onStatus = null // Definido em App.vue
 
-let _statusEvent_ = function (statusCode) {
+let _statusEvent_ = function (statusCode, statusMsg) {
     if (onStatus instanceof Function && statusCode !== undefined && statusCode !== null) {
-        onStatus(statusCode)
+        onStatus(statusCode, statusMsg)
     }
 }
 
@@ -37,7 +37,7 @@ let restAPI = {
         return new Promise((resolve, reject) => {
             axios.get(url).then(async (response) => {
                 Loading.hide()
-                _statusEvent_(response.data ? response.data.status_code : null)
+                _statusEvent_(response.data ? response.data.status_code : null, response.data ? response.data.status_msg : null)
                 resolve(response.data)
             }).catch((e) => {
                 Loading.hide()
@@ -57,7 +57,7 @@ let restAPI = {
         return new Promise((resolve, reject) => {
             axios.post(url, {data: opt.data}).then(async (response) => {
                 Loading.hide()
-                _statusEvent_(response.data ? response.data.status_code : null)
+                _statusEvent_(response.data ? response.data.status_code : null, response.data ? response.data.status_msg : null)
                 resolve(response.data)
             }).catch((e) => {
                 Loading.hide()

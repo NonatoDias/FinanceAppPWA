@@ -33,13 +33,13 @@ export default {
     }
   },
   mounted () {
-    this.$restAPI.setOnStatus((statusCode) => {
+    this.$restAPI.setOnStatus((statusCode, statusMsg) => {
       switch (statusCode) {
         case 401:
           this.logout()
           break
         case 500:
-          this.alert()
+          this.alert(statusMsg)
           break
         default:
           break

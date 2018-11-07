@@ -113,6 +113,14 @@ export default {
                 category: null
               }
         },
+        getDataExpense () {
+          return {
+            value: this.expense.value,
+            date: this.expense.date,
+            description: this.expense.description || 'Sem descrição',
+            category_id: this.expense.category
+          }
+        },
         confirm () {
           this.$v.expense.$touch()
           if (this.$v.expense.$error) { // Error
@@ -122,19 +130,24 @@ export default {
           this.$restAPI.post({
               req: 'expense',
               action: 'addexpense',
-              data: {
-                  value: this.expense.value,
-                  date: this.expense.date,
-                  description: this.expense.description,
-                  category_id: this.expense.category
-              }
+              data: this.getDataExpense()
           }).then((resp) => {
+              this.addOfflineData()
               this.opened = false
               this.$emit('addedExpense')
           }).catch(() => {
+              if (navigator.onLine === false) {
+                this.addOfflineData()
+              }
               this.$emit('errorNotAdded')
               this.opened = false
           })
+        },
+        addOfflineData () {
+          this.$offlineStorage.update('offlineExpenses', (arr) => {
+            arr.push(this.getDataExpense())
+            return arr
+          }, [])
         },
         cancel () {
             this.opened = false

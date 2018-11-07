@@ -6,6 +6,7 @@ module.exports = function (ctx) {
     plugins: [
       'axios',
       'restAPI',
+      'offlineStorage',
       'vuelidate'
     ],
     css: [
