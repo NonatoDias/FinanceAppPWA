@@ -118,7 +118,7 @@ export default {
             value: this.expense.value,
             date: this.expense.date,
             description: this.expense.description || 'Sem descrição',
-            category_id: this.expense.category
+            category_id: Number(this.expense.category)
           }
         },
         confirm () {
@@ -145,7 +145,7 @@ export default {
         },
         addOfflineData () {
           this.$offlineStorage.update('offlineExpenses', (arr) => {
-            arr.push(this.getDataExpense())
+            arr.unshift(this.getDataExpense())
             return arr
           }, [])
         },

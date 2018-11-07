@@ -87,34 +87,47 @@ export default {
     getOfflineExpenses () {
       return this.$offlineStorage.get('offlineExpenses', [])
     },
+    dateToString: function (value) {
+        if (!value) return ''
+        value = value.toString()
+        console.log('aqui________________', new Date(value).toLocaleString())
+        return new Date(value).toLocaleString()
+    },
     loadExpenses () {
       this.$restAPI.get({
           req: 'expense',
           action: 'getall',
           data: {
-            month: new Date().getMonth()
+            month: new Date().getMonth() + 1
           }
       }).then((data) => {
           let auxArray = []
           let auxTotal = 0
-          // let auxTotalToday = 0
-          this.getOfflineExpenses().forEach((exp, i) => {
+          let auxTotalToday = 0
+          this.getOfflineExpenses().forEach((offExps, i) => {
             const test = data.expenses.every((exp2, j) => {
-              if (!(exp.description === exp2.description && exp.value === exp2.value)) {
+              if (!(offExps.description === exp2.description &&
+                    offExps.category_id === exp2.category_id &&
+                    offExps.value === exp2.value &&
+                    this.dateToString(offExps.date) === this.dateToString(exp2.date))
+              ) {
                 return true
               }
               return false
             })
             if (test) {
-              auxArray.push(exp)
-              auxTotal += exp.value
-              // auxTotalToday +=exp.value
+              auxArray.push(offExps)
+              auxTotal += offExps.value
+              if (new Date(offExps.date).toDateString() === new Date().toDateString()) {
+                auxTotalToday += offExps.value
+              }
             }
           })
           this.$offlineStorage.set('offlineExpenses', auxArray)
+          console.log(auxArray)
           this.expenses = [...auxArray, ...data.expenses]
           this.totalExpenses = data.total + auxTotal
-          this.totalExpensesToday = data.totalToday ? data.totalToday : 0
+          this.totalExpensesToday = data.totalToday ? data.totalToday + auxTotalToday : 0
       })
 
       if (navigator.onLine === false) {
@@ -127,7 +140,7 @@ export default {
     }
   },
   mounted () {
-    // this.loadCategories()
+    this.loadCategories()
     this.loadExpenses()
   },
   components: {
