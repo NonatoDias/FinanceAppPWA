@@ -1,87 +1,166 @@
-importScripts("precache-manifest.f9481d0a726c9d7d311b4522cd555fa6.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
+importScripts("precache-manifest.947b6b969777779825657a47e10785c8.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 /**
  * Service worker
  * @author Nonato Dias
  */
 
-workbox.core.setCacheNameDetails({prefix: "finanpe"});
+const cfg = {
+    prefix: "finanpe",
+    hostWS: 'psi-webdias.azurewebsites.net',
+    urlWS: 'https://psi-webdias.azurewebsites.net/',
+    timeoutSync: 2 * 60 * 1000
+}
 
-
+workbox.core.setCacheNameDetails({prefix: cfg.prefix});
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 
-function createResponseOK(data){
+/****************************************************
+ *               OFFLINE REQUESTS                   *
+ ****************************************************/
+let routesFromReq = {
+    'expense': {
+        actions: {
+            GET: {
+                'getall': true
+            },
+            POST: {
+                'addexpense': true
+            }
+        }
+    },
+    'category': {
+        actions: {
+            GET: {
+                'getall': true
+            }
+        }
+    }
+}
+
+function hasOfflineRoute_(searchParams, method){
+    let mtd_ = method ? method : 'GET';
+    let req_ = routesFromReq[searchParams.get('req')];
+    let act_ = searchParams.get('action');
+
+    if(req_ && act_ && req_.actions && req_.actions[mtd_] && req_.actions[mtd_][act_]){
+        return true;
+    }
+    return false;
+}
+
+function createResponse(status, data){
     let blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'});
-    let init = { 'status' : 200 , '' : '' };
+    let init = { 'status' : status || 200 , '' : '' };
     return new Response(blob,init);
 }
 
+/****************************************************
+ *                  GET REQUESTS                    *
+ ****************************************************/
 
 /**
- * Listagem de despesas
+ * 
  * @param {*} param0 
  */
-const matchWS = ({url, event}) => {
-    return (url.host.includes('psi-webdias.azurewebsites.net'));
+const matchWSGET = ({url, event}) => {
+    if(url.host.includes(cfg.hostWS)){
+        let searchParams = url.searchParams;
+        return hasOfflineRoute_(searchParams, 'GET');
+    }
+    return false;
 };
-
-let allExpenses_ = {
-    status_code: 200,
-    status_msg: 'Ok.',
-    total: 0,
-    expenses: [{id: 37, value: 20.99, description: 'Teste offline', date: '30/10/2018'}]
-};
-
-let lastAddExpense = {};
 
 /**
- * Get routes
+ * Strategy staleWhileRevalidate
  */
-workbox.routing.registerRoute(matchWS, ({url, event, params}) => {
-    let searchParams = url.searchParams;
-    if(searchParams.get('req') === 'expense' && searchParams.get('action') === 'getall'){
-        return fetch(event.request)
-        .then((response) => {
-            return response.json().then((json_)=>{ 
-                allExpenses_ = json_;
-                return createResponseOK(allExpenses_);
-            })
+workbox.routing.registerRoute(matchWSGET, workbox.strategies.staleWhileRevalidate({
+    cacheName: cfg.prefix+'-json',
+    plugins: [
+        new workbox.expiration.Plugin({
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+        }),
+        {
+            cacheWillUpdate: async ({request, response, event})  => {
+                return response.clone().json().then((json_) => {
+                    if(json_.status_code == 200){
+                        json_.status_cached = true;
+                        return createResponse(200, json_)
+                    }
+                    return null;
+                    
+                }).catch((e)=>{
+                    console.error('error status cache', e)
+                    return response;
+                })
+            },
+        }
+    ],
+}));
 
-        }).catch(()=>{
-            return createResponseOK(allExpenses_);
-        })
+/****************************************************
+ *                 POST REQUESTS                    *
+ ****************************************************/
+/**
+ * 
+ * @param {*} param0 
+ */
+const matchWSPOST = ({url, event}) => {
+    if(url.host.includes(cfg.hostWS)){
+        let searchParams = url.searchParams;
+        return hasOfflineRoute_(searchParams, 'POST');
     }
-    return fetch(event.request)
-    .then((response) => {
-        return response;
-    })
+    return false;
+};
+
+const queue = new workbox.backgroundSync.Queue(cfg.prefix+'-bck_sync', {
+    maxRetentionTime: 30 * 24 * 60 // Retry for max n minutes
 });
 
 /**
- * Post routes
+ * Strategy networkOnly
  */
-workbox.routing.registerRoute(matchWS, ({url, event, params}) => {
-    let searchParams = url.searchParams;
-    if(searchParams.get('req') === 'expense' && searchParams.get('action') === 'addexpense'){
-        event.request.clone().json().then((json_) => {
-            lastAddExpense = json_.data;
-        });
-        return fetch(event.request)
-        .then((response) => {
-            return response;
+workbox.routing.registerRoute(matchWSPOST, workbox.strategies.networkOnly({
+    plugins: [
+        {
+            fetchDidFail: async ({originalRequest, request, error, event}) => {
+                queue.addRequest(request);
+            }
+        }
+    ],
+}), 'POST');
 
+
+/****************************************************
+ *                  SYNCHRONIZING                   *
+ ****************************************************/
+let loopInterval_ = null;
+
+function loop_(){
+    clearTimeout(loopInterval_)
+
+    loopInterval_ = setTimeout(()=>{
+        // console.log('\nSincronizando com ws '+ new Date() +' ... ');
+        fetch(cfg.urlWS + '?req=api&action=sync').then(function(resp_){
+            return resp_.json().then(function(json) {
+                queue.replayRequests().then(()=>{
+                    loop_();
+                }).catch(()=>{
+                    console.error('   error replayed')
+                    loop_();
+                })
+            })
         }).catch(()=>{
-            lastAddExpense.id = null;
-            allExpenses_.expenses.unshift(lastAddExpense);
-            return createResponseOK(allExpenses_);
+            console.error('NOT sync, maybe offline')
+            loop_();
         })
-    }
-    return fetch(event.request)
-    .then((response) => {
-        return response;
-    })
-}, 'POST');
+
+    }, cfg.timeoutSync)
+} 
+
+loop_();
 

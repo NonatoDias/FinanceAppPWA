@@ -4,20 +4,28 @@ self.__precacheManifest = [
     "url": "fonts/KFOlCnqEu92Fr1MmEU9fBBc-.de8b7431.woff"
   },
   {
-    "revision": "fe37446b903ba9218fc2bcbcf936fcf0",
+    "revision": "00482bfbf8736fa2607a8875266e0139",
     "url": "index.html"
   },
   {
-    "revision": "3020c8ac2c2872dec7741e5948520093",
-    "url": "statics/quasar-logo.png"
+    "revision": "e359e3e64146ee68db93c95d224eee2b",
+    "url": "statics/pwa/finanpe-384.png"
+  },
+  {
+    "revision": "aa7a6c0d3170ef779f41",
+    "url": "js/1d4088f9.541d4def.js"
+  },
+  {
+    "revision": "38dc84bfad80f0bc4cb976619dfee3a0",
+    "url": "statics/pwa/finanpe-512.png"
   },
   {
     "revision": "4e1a9b142b401a7e90bc",
     "url": "js/2259aa71.a7fe6f53.js"
   },
   {
-    "revision": "e359e3e64146ee68db93c95d224eee2b",
-    "url": "statics/pwa/finanpe-384.png"
+    "revision": "3020c8ac2c2872dec7741e5948520093",
+    "url": "statics/quasar-logo.png"
   },
   {
     "revision": "bd7f5f6c28d0d2006586",
@@ -36,16 +44,16 @@ self.__precacheManifest = [
     "url": "js/4b47640d.cb798a0e.js"
   },
   {
-    "revision": "38dc84bfad80f0bc4cb976619dfee3a0",
-    "url": "statics/pwa/finanpe-512.png"
+    "revision": "7c4f529783fe3e625fc5da90279e8dae",
+    "url": "statics/pwa/finanpe-256.png"
   },
   {
     "revision": "2d79a35711ed40a21966",
     "url": "js/69c6e5ac.a30c6cb3.js"
   },
   {
-    "revision": "7c4f529783fe3e625fc5da90279e8dae",
-    "url": "statics/pwa/finanpe-256.png"
+    "revision": "a13b2bd5261e2df374128df1aab93001",
+    "url": "statics/icons/icon-512x512.png"
   },
   {
     "revision": "ddb432e61160998cbd68",
@@ -56,8 +64,8 @@ self.__precacheManifest = [
     "url": "statics/pwa/finanpe-192.png"
   },
   {
-    "revision": "6d5cd76ff0956e279bcc",
-    "url": "js/app.d505229b.js"
+    "revision": "39b96a3a193cd2e385c9",
+    "url": "js/app.b9cb7ccb.js"
   },
   {
     "revision": "5f555f833da228d34538e3556c519c72",
@@ -66,14 +74,6 @@ self.__precacheManifest = [
   {
     "revision": "1b99500154c5e779961b",
     "url": "js/b62883b0.07864e60.js"
-  },
-  {
-    "revision": "ed12d10fd0407eea42ccaf7af7991146",
-    "url": "statics/icons/ms-icon-144x144.png"
-  },
-  {
-    "revision": "9b52a86099d62796fbcb",
-    "url": "js/bf5ad53c.553c78e3.js"
   },
   {
     "revision": "fe4b6b81b55366305919bef83953aa3f",
@@ -88,40 +88,40 @@ self.__precacheManifest = [
     "url": "js/vendor.80c5b2b5.js"
   },
   {
-    "revision": "a13b2bd5261e2df374128df1aab93001",
-    "url": "statics/icons/icon-512x512.png"
+    "revision": "ed12d10fd0407eea42ccaf7af7991146",
+    "url": "statics/icons/ms-icon-144x144.png"
   },
   {
     "revision": "66d7719a8ca03c1a591444c013802817",
     "url": "statics/icons/icon-384x384.png"
   },
   {
-    "revision": "20c6420ccf16a07d9d56538e30a6b524",
-    "url": "statics/icons/icon-256x256.png"
+    "revision": "3020c8ac2c2872dec7741e5948520093",
+    "url": "statics/icons/icon-128x128.png"
   },
   {
     "revision": "8c4120b4e88276badbc808e518572fad",
     "url": "statics/icons/icon-192x192.png"
   },
   {
+    "revision": "20c6420ccf16a07d9d56538e30a6b524",
+    "url": "statics/icons/icon-256x256.png"
+  },
+  {
+    "revision": "0768b93a1e0191cc7a67",
+    "url": "js/125e7c68.743fa5c0.js"
+  },
+  {
     "revision": "c91486b5bf3819057542d1d5e507a1da",
     "url": "statics/icons/finanpe-svg.svg"
   },
   {
-    "revision": "319454e307e567022b3e",
-    "url": "js/125e7c68.8f2bc1fd.js"
-  },
-  {
-    "revision": "3020c8ac2c2872dec7741e5948520093",
-    "url": "statics/icons/icon-128x128.png"
+    "revision": "2f9d7587924933c1912c342b190b53ca",
+    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "25f8fd0caa75a765da4c540351ab0a80",
     "url": "statics/icons/finanpe-logo.png"
-  },
-  {
-    "revision": "2f9d7587924933c1912c342b190b53ca",
-    "url": "statics/icons/favicon-32x32.png"
   },
   {
     "revision": "efb00e57304380d857603760600da5d5",
@@ -152,16 +152,16 @@ self.__precacheManifest = [
     "url": "fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.8a9a261c.woff2"
   },
   {
-    "revision": "d5654d8dc38f0fb56325129ccf9461da",
-    "url": "img/bg-mobile.d5654d8d.jpg"
-  },
-  {
     "revision": "d4b6a229d7ae188fd8510dfc7a797da2",
     "url": "img/bg-desktop.d4b6a229.jpg"
   },
   {
-    "revision": "6d5cd76ff0956e279bcc",
-    "url": "css/app.353d1603.css"
+    "revision": "d5654d8dc38f0fb56325129ccf9461da",
+    "url": "img/bg-mobile.d5654d8d.jpg"
+  },
+  {
+    "revision": "ddb432e61160998cbd68",
+    "url": "css/7f3ad8c6.6d920793.css"
   },
   {
     "revision": "a1471d1d6431c893582a5f6a250db3f9",
@@ -184,16 +184,12 @@ self.__precacheManifest = [
     "url": "fonts/KFOkCnqEu92Fr1MmgVxIIzQ.e9dbbe8a.woff"
   },
   {
-    "revision": "9b52a86099d62796fbcb",
-    "url": "css/bf5ad53c.17023bb5.css"
-  },
-  {
     "revision": "1b99500154c5e779961b",
     "url": "css/b62883b0.6c99ce9e.css"
   },
   {
-    "revision": "ddb432e61160998cbd68",
-    "url": "css/7f3ad8c6.6d920793.css"
+    "revision": "39b96a3a193cd2e385c9",
+    "url": "css/app.353d1603.css"
   },
   {
     "revision": "2d79a35711ed40a21966",
@@ -212,7 +208,11 @@ self.__precacheManifest = [
     "url": "css/2259aa71.e6ddc657.css"
   },
   {
-    "revision": "319454e307e567022b3e",
+    "revision": "aa7a6c0d3170ef779f41",
+    "url": "css/1d4088f9.ad4ca2c2.css"
+  },
+  {
+    "revision": "0768b93a1e0191cc7a67",
     "url": "css/125e7c68.32b7134b.css"
   }
 ];
