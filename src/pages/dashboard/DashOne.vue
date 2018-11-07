@@ -41,6 +41,7 @@
             <mainList :expenses="expenses"></mainList>
         </div>
         <add-expenses-modal ref="dialog"
+            :categoriesOptions="categoriesOptions"
             v-on:addedExpense="loadExpenses"
             v-on:errorNotAdded="loadExpenses"
         ></add-expenses-modal>
@@ -68,6 +69,7 @@ export default {
             isExpensesOpend: true,
             expenses: [],
             categories: [],
+            categoriesOptions: [],
             totalExpenses: 0,
             totalExpensesToday: 0
         }
@@ -82,6 +84,12 @@ export default {
                 action: 'getall'
             }).then((data) => {
                 this.categories = data.categories
+                this.categoriesOptions = data.categories.map((c) => {
+                return {
+                    label: c.name,
+                    value: c.id
+                }
+            })
             })
         },
         getOfflineExpenses () {
