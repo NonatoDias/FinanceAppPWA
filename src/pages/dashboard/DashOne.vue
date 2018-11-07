@@ -78,7 +78,10 @@ export default {
     loadExpenses () {
       this.$restAPI.get({
           req: 'expense',
-          action: 'getall'
+          action: 'getall',
+          data: {
+            month: new Date().getMonth()
+          }
       }).then((data) => {
           this.expenses = data.expenses
           this.totalExpenses = data.total

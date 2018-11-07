@@ -70,7 +70,6 @@ function getActionCallback(searchParams, method){
 
         //Has action ?
         if(act_ instanceof Function){
-            console.log('*********** metodo '+ mtd_, act_)
             return act_;
         }
     }
@@ -136,9 +135,9 @@ const matchWSPOST = ({url, event}) => {
 
 workbox.routing.registerRoute(matchWSPOST, workbox.strategies.networkOnly({
     plugins: [
-        new workbox.backgroundSync.Plugin( //POST
-            prefix__+'-bck_sync'
-        )
+        new workbox.backgroundSync.Plugin(prefix__+'-bck_sync', {
+            maxRetentionTime: 30 * 24 * 60 // Retry for max of 24 Hours
+        })
     ],
 }), 'POST');
 

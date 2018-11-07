@@ -3,16 +3,16 @@
         <q-card >
             <q-card-main class=" text-white" :class="backgroundColor">
             <div class="row">
-                <div class="col-7  items-center">
-                    <p class="p-title text-italic "><i class="material-icons icon-size"> mood_bad </i>{{title}}</p>
-                    <h5 class="h5-card-content" ref="number2" >
-                        {{totalToday || 0}}
-                    </h5>
-                </div>
                 <div class="col-5  items-center" >
                     <p class="p-title text-italic "><i class="material-icons icon-size"> attach_money </i>{{title2}}</p>
                     <h5 class="h5-card-content" ref="number">
                     {{total}}
+                    </h5>
+                </div>
+                <div class="col-7  items-center">
+                    <p class="p-title text-italic "><i class="material-icons icon-size"> mood_bad </i>{{title}}</p>
+                    <h5 class="h5-card-content" ref="number2" >
+                        {{totalToday || 0}}
                     </h5>
                 </div>
                 <!--div  class="col-12  items-center">
