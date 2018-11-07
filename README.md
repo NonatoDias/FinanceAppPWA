@@ -8,7 +8,7 @@ Este projeto propõe o desenvolvimento de um sistema web para controle financeir
 
 ## App
 
-![Screenshot](docs/app-2.png)
+![Screenshot](docs/app-3.png)
 
 ### Funcionalidades Básicas
 - Cadastro de despesas
@@ -29,5 +29,23 @@ Com PWA
 Para construir
 
     npm run pwa-build
+
+## Progressive Web Apps
+
+Este projeto foi contruido com auxilio da biblioteca [Workbox](https://developers.google.com/web/tools/workbox/), a qual disponibiliza um conjunto de boas práticas e facilita o desenvolvimento com service workers
+
+- Precaching
+- Runtime caching
+- Strategies
+- Request routing
+- Background sync
+- Helpful debugging
+- Greater flexibility and feature set than sw-precache and sw-toolbox
+
+Todos os script podem ser encontrados no diretório: 
+
+    src-pwa
+        |__ custom-service-worker.js
+        |__ register-service-worker.js
 
 
