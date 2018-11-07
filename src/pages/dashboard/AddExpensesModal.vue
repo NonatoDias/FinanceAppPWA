@@ -39,6 +39,8 @@
             <q-field
               class="field-margin"
               helper="Pequeno resumo da despeza"
+              :error="$v.expense.description.$error"
+              :error-label="'Este campo só pode conter no máximo ' + $v.expense.description.$params.maxLength.max + ' caracteres'"
             >
               <q-input
                 v-model="expense.description"
@@ -72,7 +74,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, maxLength } from 'vuelidate/lib/validators'
 export default {
     data () {
         return {
@@ -175,7 +177,8 @@ export default {
     validations: {
         expense: {
             value: { required },
-            category: { required }
+            category: { required },
+            description: {maxLength: maxLength(100)}
         }
     }
 }
