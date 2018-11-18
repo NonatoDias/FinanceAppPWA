@@ -7,7 +7,8 @@ module.exports = function (ctx) {
       'axios',
       'restAPI',
       'offlineStorage',
-      'vuelidate'
+      'vuelidate',
+      'apexcharts'
     ],
     css: [
       'app.styl'

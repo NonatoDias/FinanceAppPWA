@@ -15,7 +15,9 @@
     "start": "npm run pwa-dev"
   },
   "dependencies": {
+    "apexcharts": "^2.2.2",
     "axios": "^0.18.0",
+    "vue-apexcharts": "^1.2.6",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
