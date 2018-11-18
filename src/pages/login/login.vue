@@ -79,7 +79,7 @@ export default {
           this.$q.notify('Por favor, revise os campos novamente!')
           return
       }
-      this.$restAPI.get({
+      this.$restAPI.post({
           req: 'user',
           action: 'login',
           data: {
