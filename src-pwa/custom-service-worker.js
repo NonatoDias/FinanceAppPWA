@@ -23,7 +23,8 @@ let routesFromReq = {
     'expense': {
         actions: {
             GET: {
-                'getall': true
+                'getall': true,
+                'getexpensesbycategory': true
             },
             POST: {
                 'addexpense': true
