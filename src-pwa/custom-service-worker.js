@@ -35,12 +35,15 @@ let routesFromReq = {
         actions: {
             GET: {
                 'getall': true
+            },
+            POST: {
+                'addcategory': true
             }
         }
     }
 }
 
-function hasOfflineRoute_(searchParams, method){
+function hasOfflineRoute_ (searchParams, method){
     let mtd_ = method ? method : 'GET';
     let req_ = routesFromReq[searchParams.get('req')];
     let act_ = searchParams.get('action');

@@ -8,11 +8,12 @@
         <q-list-header>Listagem de todas as categorias</q-list-header>
         <q-item-separator />
         <template v-for="(category, item) in categories">
-            <q-item :separator="true" :key="item">
-                <q-item-side color="light-blue" :icon="category.icon || 'category'" />
+            <q-item :separator="true" :key="item" :class="category.id ? '': 'offline-item'">
+                <q-item-side :color="category.id ? 'light-blue': 'text-blue-grey-5'" :icon="category.icon || 'category'" />
                 <q-item-main :label="category.name + ''" />
                 <q-item-tile>
-                  <q-btn icon="edit" size="sm" color="secondary" @click="editCategory" rounded/>
+                  <q-btn icon="edit" size="sm" color="secondary" @click="editCategory(category)" rounded/>
+                  <q-btn :style="'margin-left: 5px;'" icon="clear" size="sm" color="red-5" @click="deleteCategory(category)" rounded/>
                 </q-item-tile>
             </q-item>
         </template>
@@ -41,22 +42,83 @@ export default {
   },
   methods: {
     addCategory () {
-      alert('Em construção')
+      this.$q.dialog({
+        title: 'Adicionar',
+        message: 'Digite abaixo o nome da categoria',
+        prompt: {
+          model: '',
+          type: 'text'
+        },
+        cancel: true
+      }).then(_catgry => {
+        this.$restAPI.post({
+          req: 'category',
+          action: 'addcategory',
+          data: {
+            icon: 'category',
+            name: _catgry
+          }
+        }).then((resp) => {
+          this.loadCategories()
+          this.addOfflineData({
+            icon: 'category',
+            name: _catgry
+          })
+        }).catch(() => {
+
+        })
+      })
     },
-    editCategory () {
-      alert('Em construção')
+    addOfflineData (_catgry) {
+      this.$offlineStorage.update('offlineCategories', (arr) => {
+          arr.unshift(_catgry)
+          return arr
+      }, [])
+    },
+    getOfflineCategories () {
+        return this.$offlineStorage.get('offlineCategories', [])
+    },
+    editCategory (ctgry) {
+      alert('Em construção ' + ctgry.name)
+    },
+    deleteCategory (ctgry) {
+      alert('Em construção ' + ctgry.name)
+    },
+    loadCategories () {
+      this.$restAPI.get({
+        req: 'category',
+        action: 'getall'
+      }).then((data) => {
+          let auxArray = []
+          this.categories = data.categories
+
+          this.getOfflineCategories().forEach((offCtgry, i) => {
+            const test = data.categories.every((exp2, j) => {
+                if (!(
+                    offCtgry.name === exp2.name &&
+                    offCtgry.icon === exp2.icon)
+                ) {
+                    return true
+                }
+                return false
+            })
+            if (test) {
+                auxArray.push(offCtgry)
+            }
+          })
+          this.$offlineStorage.set('offlineCategories', auxArray)
+          this.categories = [...auxArray, ...data.categories]
+      })
     }
   },
   mounted () {
-    this.$restAPI.get({
-        req: 'category',
-        action: 'getall'
-    }).then((data) => {
-        this.categories = data.categories
-    })
+    this.loadCategories()
   }
 }
 </script>
 
 <style>
+.offline-item{
+  opacity: 0.6;
+}
 </style>

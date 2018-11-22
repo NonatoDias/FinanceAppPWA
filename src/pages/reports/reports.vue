@@ -3,7 +3,7 @@
     <div class="content-header" style="padding-bottom: 16px">
       <span class="vertical-bottom content-header-title">Relatorio Geral</span>
     </div>
-    <div class="report-body bg-white" >
+    <div class="report-card bg-white" >
       <div v-if="series && series.length > 0">
         <h4 class="report-title">Distribuição por Categorias</h4>
         <h5 class="report-subtitle">(Somente despesas registradas online)</h5>
@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style>
-  .report-body{
+  .report-card{
     max-width: 400px;
     padding: 20px;
     text-align: center;
@@ -106,7 +106,7 @@ export default {
   }
 
   @media screen and (max-width: 480px){
-    .report-body{
+    .report-card{
       padding: 20px 10px;
     }
   }
