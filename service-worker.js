@@ -1,4 +1,4 @@
-importScripts("precache-manifest.efead9a74271255b98c8b9f11d2d1463.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
+importScripts("precache-manifest.4f76755d298087a6f57f1323a4713717.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 /**
  * Service worker
@@ -37,12 +37,15 @@ let routesFromReq = {
         actions: {
             GET: {
                 'getall': true
+            },
+            POST: {
+                'addcategory': true
             }
         }
     }
 }
 
-function hasOfflineRoute_(searchParams, method){
+function hasOfflineRoute_ (searchParams, method){
     let mtd_ = method ? method : 'GET';
     let req_ = routesFromReq[searchParams.get('req')];
     let act_ = searchParams.get('action');
