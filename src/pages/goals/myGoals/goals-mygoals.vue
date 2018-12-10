@@ -54,7 +54,29 @@ export default {
   },
   methods: {
     addGoal () {
-      alert('Em construção')
+      this.$q.dialog({
+        title: 'Adicionar meta',
+        message: 'valor',
+        prompt: {
+          model: '',
+          type: Number
+        },
+        cancel: true
+      }).then(_ggoal => {
+        this.$restAPI.post({
+          req: 'goal',
+          action: 'addgoal',
+          data: {
+          'dt_end': new Date(),
+          'dt_start': new Date(),
+          'amount': _ggoal
+          }
+        }).then((resp) => {
+          this.loadGoals()
+        }).catch(() => {
+
+        })
+      })
     },
     setAsActive (goal) {
       this.$restAPI.post({
