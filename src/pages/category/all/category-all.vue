@@ -12,7 +12,7 @@
                 <q-item-side :color="category.id ? 'light-blue': 'text-blue-grey-5'" :icon="category.icon || 'category'" />
                 <q-item-main :label="category.name + ''" />
                 <q-item-tile>
-                  <q-btn icon="edit" size="sm" color="secondary" @click="editCategory(category)" rounded/>
+                  <!--q-btn icon="edit" size="sm" color="secondary" @click="editCategory(category)" rounded/-->
                   <q-btn :style="'margin-left: 5px;'" icon="clear" size="sm" color="red-5" @click="deleteCategory(category)" rounded/>
                 </q-item-tile>
             </q-item>
@@ -82,7 +82,22 @@ export default {
       alert('Em construção ' + ctgry.name)
     },
     deleteCategory (ctgry) {
-      alert('Em construção ' + ctgry.name)
+      this.$q.dialog({
+        title: 'Confirmação',
+        message: 'Deseja realmente remover a categoria ' + ctgry.name + '?',
+        ok: 'confirmar',
+        cancel: 'cancelar'
+      }).then(() => {
+        this.$restAPI.post({
+          req: 'category',
+          action: 'removecategory',
+          data: {
+            id: ctgry.id
+          }
+        }).then((resp) => {
+          this.loadCategories()
+        })
+      })
     },
     loadCategories () {
       this.$restAPI.get({
