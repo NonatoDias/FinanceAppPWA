@@ -82,6 +82,20 @@ export default {
       alert('Em construção ' + ctgry.name)
     },
     deleteCategory (ctgry) {
+      if (navigator.onLine === false) {
+        this.$q.dialog({
+          title: 'Desculpe',
+          message: 'Para remover esta categoria você precisa estar conectado a internet!'
+        })
+        return
+      }
+      if (!ctgry.id) {
+        this.$q.dialog({
+          title: 'Desculpe',
+          message: 'Não é possível remover neste momente. Aguarde um pouco!'
+        })
+        return
+      }
       this.$q.dialog({
         title: 'Confirmação',
         message: 'Deseja realmente remover a categoria ' + ctgry.name + '?',

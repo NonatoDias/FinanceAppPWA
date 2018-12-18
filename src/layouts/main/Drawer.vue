@@ -63,7 +63,7 @@ export default {
                 routes: [
                     { route: '/profile', faIcon: 'fa fa-bell-o', materialIcon: 'perm_identity', name: 'Perfil' },
                     { route: '/my-goals', faIcon: 'fa fa-bell-o', materialIcon: 'thumb_up', name: 'Minhas Metas' },
-                    { route: '/alerts', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Alertas' },
+                    // { route: '/alerts', faIcon: 'fa fa-bell-o', materialIcon: 'notifications_active', name: 'Alertas' },
                     { route: '/category-all', faIcon: 'fa fa-cog', materialIcon: 'build', name: 'Ajuste de categorias' }
                 ]
             }
