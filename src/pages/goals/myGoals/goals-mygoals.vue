@@ -70,7 +70,11 @@ export default {
         }
       }).then((data) => {
         this.loadGoals()
+        this.addOfflineData(goal)
       })
+    },
+    addOfflineData (activeGoal) {
+      this.$offlineStorage.set('offlineActiveGoal', activeGoal)
     },
     loadGoals () {
       this.$restAPI.get({

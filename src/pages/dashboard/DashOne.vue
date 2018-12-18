@@ -10,7 +10,7 @@
             title="Meta"
             background-color="bg-teal-7"
             icon-name="sentiment_very_satisfied"
-            :total="'25 R$ por dia'">
+            :total="goal.amount + ' R$'">
         </card-total>
         <card-total
             class="hide-mobile"
@@ -69,6 +69,9 @@ export default {
             isExpensesOpend: true,
             expenses: [],
             categories: [],
+            goal: {
+                amount: 0
+            },
             categoriesOptions: [],
             totalExpenses: 0,
             totalExpensesToday: 0
@@ -85,11 +88,11 @@ export default {
             }).then((data) => {
                 this.categories = data.categories
                 this.categoriesOptions = data.categories.map((c) => {
-                return {
-                    label: c.name,
-                    value: c.id
-                }
-            })
+                    return {
+                        label: c.name,
+                        value: c.id
+                    }
+                })
             })
         },
         getOfflineExpenses () {
@@ -99,6 +102,9 @@ export default {
             if (!value) return ''
             value = value.toString()
             return new Date(value).toLocaleString()
+        },
+        addOfflineActiveGoal (activeGoal) {
+            this.$offlineStorage.set('offlineActiveGoal', activeGoal)
         },
         loadExpenses () {
             this.$restAPI.get({
@@ -139,6 +145,8 @@ export default {
                 this.expenses = [...auxArray, ...data.expenses]
                 this.totalExpenses = data.total + auxTotal
                 this.totalExpensesToday = data.totalToday ? data.totalToday + auxTotalToday : 0
+                this.goal = data.activeGoal && data.activeGoal.id ? data.activeGoal : this.goal
+                this.addOfflineActiveGoal(this.goal)
             })
 
             if (navigator.onLine === false) {
@@ -151,6 +159,8 @@ export default {
         }
     },
     mounted () {
+        let g = this.$offlineStorage.get('offlineActiveGoal')
+        this.goal = g && g.id ? g : this.goal
         this.loadCategories()
         this.loadExpenses()
     },
